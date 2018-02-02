@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": ["node"],
+    "typeRoots":["../node_modules/@types"]
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}
+
+/* types[] .pushed("node") and added 
+"typeRoots":["../node_modules/@types"] troubleshooting "error code ts2304 cannot find name require" */
