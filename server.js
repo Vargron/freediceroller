@@ -7,7 +7,7 @@ const port=8000;
 app.use(express.static(path.join(__dirname,"./client/dist")));//change to desired dirname
 app.use(bp.json());
 
-app.use(session({secret:"string of choice "}))
+app.use(session({secret:"sadlkngfasb;oeaina;isdhbaioetasn;aldksfhwioer"}))
 require("./config/mongoose")
 require("./config/routes")(app);
 

@@ -4,6 +4,7 @@ var UserSchema=new Schema({
     username:String,
     email:String,
     passhash:String,
+    admin:Boolean,
 })
 
 mongoose.model("User", UserSchema);

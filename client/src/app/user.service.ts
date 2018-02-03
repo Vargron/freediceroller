@@ -6,13 +6,31 @@ import { BehaviorSubject } from 'Rxjs/behaviorsubject';
 @Injectable()
 export class UserService {
   registererrors:BehaviorSubject<any[]>= new BehaviorSubject([]);
+  current_user:BehaviorSubject<Object>= new BehaviorSubject({});
 
   constructor(private http:HttpClient, private router:Router,) {
 
    }
    login(user,cb){
+     // this will go in to the back end and check to see if that user name exist and bcrypt the password.
      console.log("inservice", user)
+     this.http.post("/user/login", user).subscribe(
+       (result)=>{
+        console.log(result)
+        if(result["status"]=="sucess"){
+          this.current_user.next(result["user"])
+          this.router.navigate(["/home"])
+
+        }else{
+          alert("you failed to login, error: "+result["error"])
+        }
+       }
+
+     )
+
      cb()
+
+
    }
    register(user,cb){
     function valid_email(emailstring){
@@ -62,7 +80,13 @@ export class UserService {
       this.http.post("../user/create", user).subscribe(
         (res)=>{
           console.log(res)
-
+          if(res["status"]!="sucess"){
+            this.registererrors.next([res["status"]])
+            console.log(res["status"])
+          }
+          else{
+            alert("registration sucess")
+          }
         }
       )
 
