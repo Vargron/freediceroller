@@ -7,10 +7,13 @@ import { BehaviorSubject } from 'Rxjs/behaviorsubject';
 export class UserService {
   registererrors:BehaviorSubject<any[]>= new BehaviorSubject([]);
   current_user:BehaviorSubject<Object>= new BehaviorSubject({});
+  all_users:BehaviorSubject<any>= new BehaviorSubject([]);
 
   constructor(private http:HttpClient, private router:Router,) {
 
    }
+
+
    login(user,cb){
      // this will go in to the back end and check to see if that user name exist and bcrypt the password.
      console.log("inservice", user)
@@ -27,10 +30,7 @@ export class UserService {
        }
 
      )
-
      cb()
-
-
    }
    register(user,cb){
     function valid_email(emailstring){
@@ -67,14 +67,10 @@ export class UserService {
       if (!tests[i][0]){
         errors.push(tests[i][1])
       }
-
     }
     console.log(errors)
     if(errors.length>0){
       this.registererrors.next(errors);
-      
-
-
     }else{
       console.log("going to back end")
       this.http.post("../user/create", user).subscribe(
@@ -89,15 +85,45 @@ export class UserService {
           }
         }
       )
-
-
-
     }
-      
-    
-    
-    
     cb()
   }
+  checkloggedin(){
+    console.log("hitting check logged in")
+    this.http.get("/user/checksession").subscribe(
+      (res)=>{
+        console.log(res)
+        if(res["user"]){
+          this.current_user.next(res["user"])
+        }else{
+          this.current_user.next({})
+        }
+        
 
+      }
+    )
+
+  }
+  logout(){
+    this.current_user.next({})
+    console.log(this.current_user.getValue())
+    this.http.get("user/logout").subscribe(
+      (res)=>{
+        console.log(res)
+
+      }
+
+      )
+    }
+
+  update_all_users(){
+    this.http.get("/user/all").subscribe(
+      (res)=>{
+        console.log(res)
+        this.all_users.next(res)
+
+      }
+    )
+
+  }
 }

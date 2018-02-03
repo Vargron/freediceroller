@@ -9,6 +9,15 @@ module.exports=function(app){
     app.post("/user/login", function(req, res){
         user.login(req, res);
     })
+    app.get("/user/checksession",function(req,res){
+        user.checksession(req,res);
+    })
+    app.get("/user/logout", function(req,res){
+        user.logout(req,res);
+    })
+    app.get("/user/all", function(req,res){
+        user.all(req,res);
+    })
     
 
 

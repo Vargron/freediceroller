@@ -1,6 +1,7 @@
 var mongoose=require("mongoose")// extabilishes mongoose operations
 var User=mongoose.model("User")//note is replaced by desired variable establishes table equivalent
 var  bcrypt = require('bcrypt')//requires bcrypt
+var session= require("express-session")
 
 module.exports={
 //each of these is a function that serves a route and will be called by said route
@@ -71,8 +72,11 @@ module.exports={
                             status:"sucess",
                             user:userresult[0]
                         })
-                        req.session["user"]=result[0];
-                        // console.log(req.session)
+                        console.log(userresult[0])
+                        req.session["user"]=userresult[0];
+                        req.session.save()
+                        console.log(req.session)
+                        console.log(session.id)
                         
         
                     }else{
@@ -85,6 +89,33 @@ module.exports={
             }
         })      
     },
+    checksession:function(req,res){
+        console.log(req.session)
+        console.log(session.id)
+        if(req.session.user!=null){
+            res.json({status:"sucess",
+            user:req.session.user})
+        }else{
+            res.json({status:"failure"})
+        }
+       
+    },
+    logout:function(req,res){
+        req.session.user=null;
+        req.session.save()
+        console.log("logout test",req.session)
+        res.json({status:"sucess"});
+    },
+    all:function(req,res){
+        
+        User.find({}, 
+        (err,result)=>{
+            res.json(result)
+
+        })
+
+    },
+    
     
         
     

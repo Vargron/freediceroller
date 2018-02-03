@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from './../user.service';
+
 
 @Component({
   selector: 'app-usermanager',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usermanager.component.css']
 })
 export class UsermanagerComponent implements OnInit {
+  all_users;
 
-  constructor() { }
+  constructor(private uservice:UserService,) { }
 
   ngOnInit() {
+    this.uservice.update_all_users()
+    this.uservice.all_users.subscribe(
+      (res)=>{
+        this.all_users=res;
+
+      }
+    )
   }
+  
 
 }

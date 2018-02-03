@@ -8,7 +8,7 @@ import { UserService } from './../user.service';
   styleUrls: ['./userhome.component.css']
 })
 export class UserhomeComponent implements OnInit {
-  current_user
+  current_user;
 
   constructor(private uservice:UserService) { 
 
@@ -22,6 +22,10 @@ export class UserhomeComponent implements OnInit {
       
 
     )
+
+  }
+  logout(){
+    this.uservice.logout()
 
   }
 

@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       passwordcon:"",
     }
     this.uservice.register(user, ()=>{
+      this.uservice.update_all_users()
 
     })
     
