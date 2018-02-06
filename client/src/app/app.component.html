@@ -3,16 +3,42 @@
  <h1> Welcome to Freediceroller.com</h1>
 
  <div>
-     <p>this is the troubleshooting navbar only</p>
-     <a [routerLink]="['']">go to notlogged in home</a>
-     <a [routerLink]="['login']">go to login page</a>
-     <a [routerLink]="['home']">go to user home</a>
-     <a [routerLink]="['usermanager']">go to usermanager</a>
-     <button (click)="checksession()">test session</button>
-     <button (click)="logout()"> logout(this will be in production)</button>
-     <button (click)="updateusers()"> update users (testing only</button>
+   
+     <ng-container *ngIf="!current_user.username">
+            <a [routerLink]="['']">go to main page</a>
+            <a [routerLink]="['login']">go to login page</a>
+     </ng-container>
+     
+     
+
+     <ng-container *ngIf="current_user">
+            <ng-container *ngIf="current_user.admin" >
+                <button (click)="sendtousermanager()"> production send to usermanager</button>
+            
+            </ng-container>
+            <ng-container *ngIf="current_user.username">
+                    <button (click)="logout()"> logout(this will be in production)</button>
+            </ng-container>
+                
+
+     </ng-container>
+    
+
+     
+
 
  </div>
  <p></p>
 </div>
 <router-outlet></router-outlet>
+
+<p>
+    depricated troubleshooting only below here
+</p>
+<a [routerLink]="['home']">go to user home</a>
+
+<a [routerLink]="['usermanager']">go to usermanager not verified</a>
+
+<button (click)="checksession()">test session</button>
+
+<button (click)="updateusers()"> update users (testing only</button>

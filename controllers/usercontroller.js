@@ -72,11 +72,11 @@ module.exports={
                             status:"sucess",
                             user:userresult[0]
                         })
-                        console.log(userresult[0])
+                        // console.log(userresult[0])
                         req.session["user"]=userresult[0];
                         req.session.save()
-                        console.log(req.session)
-                        console.log(session.id)
+                        // console.log(req.session)
+                        // console.log(session.id)
                         
         
                     }else{
@@ -90,8 +90,8 @@ module.exports={
         })      
     },
     checksession:function(req,res){
-        console.log(req.session)
-        console.log(session.id)
+        // console.log(req.session)
+        // console.log(session.id)
         if(req.session.user!=null){
             res.json({status:"sucess",
             user:req.session.user})
@@ -103,7 +103,7 @@ module.exports={
     logout:function(req,res){
         req.session.user=null;
         req.session.save()
-        console.log("logout test",req.session)
+        // console.log("logout test",req.session)
         res.json({status:"sucess"});
     },
     all:function(req,res){
@@ -115,6 +115,203 @@ module.exports={
         })
 
     },
+    edit:function(req,res){
+
+
+        User.find({_id:req.body._id},
+            (err, user)=>{
+                console.log(user, "found user")
+                let new_user={}
+                bcrypt.hash(req.body.password, 10, 
+                    (err, hash)=>{
+                        console.log(user._id)
+                        if (req.body.password==""){
+                            new_user={
+                                // _id:user._id,
+                                username:req.body.username,
+                                passhash:user.passhash,
+                                admin:req.body.admin,
+        
+                            }
+                        }
+                        else{
+         
+                            new_user={
+                                // _id:user._id,
+                                username:req.body.username,
+                                passhash:hash,
+                                admin:req.body.admin,
+        
+                            }
+                        
+        
+                        }
+                
+                        // console.log(new_user, "requested changes")
+                        
+                       
+                        
+                        // console.log(req.body._id)
+                        User.findOneAndUpdate({_id:req.body._id}, new_user,
+                            (err, result)=>{
+                                // console.log("err",err)
+                                // console.log("res", result)
+                                if(err){
+                                    res.json({status:"failed on update"})
+                                }
+                                else{
+                                    res.json({status:"success"})
+                                }
+                                
+                            }
+                        )
+                        
+                    }
+                )      
+            }
+        )
+    
+
+                    
+        
+        
+                
+        
+    },
+    // this function is to avoid creating an admin manualy in the database to acces the user manager
+    defaultadmin:function(req,res){
+        User.find({admin:true}, 
+         (err, result)=>{
+            bcrypt.hash("hammerthis", 10, 
+                (err, hash)=>{
+                    if(result.length>0){
+
+                        let thor=new User({
+                            username:"thor",
+                            email:"thor@thor.com",
+                            passhash:hash,
+                            admin:true,
+                
+                        })
+                        thor.save()
+                        res.json({sucess:"sucess"})
+
+                    }
+                    else{
+                        res.json({status:"failure, there is already an admin"})
+                    }
+                }
+            )
+
+        })
+
+
+       
+
+    },
+    checkadmin:function(req,res){
+        if (req.session==undefined){
+            console.log("no session");
+            return false;
+        }
+        if (req.session.user==undefined){
+            console.log("not in session")
+            return false
+        }
+        User.find({_id:req.session.user._id}, 
+            (err, result)=>{
+                if (err){
+                    console.log("searcherror");
+                    return false;
+                }
+                if(result.length!=1){
+                    console.log("user not in database or too many users");
+                    return false
+                }
+                else{
+                    if(result[0].admin){
+                        console.log("user is admin")
+                        return true;
+
+                    }
+                    else{
+                        console.log("user exists but not admin")
+                        return false
+                    }
+
+
+                }
+                
+            }
+        )
+    },
+    verifyadmin:function(req,res){
+        if (req.session==undefined){
+            console.log("no session");
+            res.json({admin:false})
+        }
+        else if (req.session.user==undefined){
+            console.log("not in session")
+            
+            res.json({admin:false})
+        }
+        else{
+            User.find({_id:req.session.user._id}, 
+                (err, result)=>{
+                    if (err){
+                        console.log("searcherror");
+                        res.json({admin:false});
+                    }
+                    if(result.length!=1){
+                        console.log("user not in database or too many users");
+                        res.json({admin:false});
+                    }
+                    else{
+                        if(result[0].admin){
+                            console.log("user is admin")
+                            res.json({admin:true});
+    
+                        }
+                        else{
+                            console.log("user exists but not admin")
+                            res.json({admin:false});
+                        }
+    
+    
+                    }
+                    
+                }
+            )
+
+        }
+
+        
+        
+        
+    },
+    delete:function(req,res){
+        console.log(req.body.id)
+
+        if(req.session.user._id==req.body.id){
+            res.json({error:"you cannot delte your self"})
+        }
+        else{
+            User.remove({_id:req.body.id},
+                (err, result)=>{
+                    if (err){
+                        res.json({status:"failed on delete query"})
+                    }
+                    else{
+                        res.json({status:"success"})
+                    }
+                }
+            )
+            
+        }
+        
+    }
+
+    
     
     
         

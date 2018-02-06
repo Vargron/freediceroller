@@ -8,6 +8,8 @@ export class UserService {
   registererrors:BehaviorSubject<any[]>= new BehaviorSubject([]);
   current_user:BehaviorSubject<Object>= new BehaviorSubject({});
   all_users:BehaviorSubject<any>= new BehaviorSubject([]);
+  show_edit:BehaviorSubject<any> = new BehaviorSubject(false);
+  edit_target:BehaviorSubject<any>= new BehaviorSubject({});
 
   constructor(private http:HttpClient, private router:Router,) {
 
@@ -61,14 +63,14 @@ export class UserService {
       [user.username.length > 2,"username must be at least 3 characters"],
       [valid_email(user.email), "email must be a properly formatted email"],
     ]
-    console.log(tests)
+    // console.log(tests)
     for (let i=0;i<tests.length;i++){
       
       if (!tests[i][0]){
         errors.push(tests[i][1])
       }
     }
-    console.log(errors)
+    // console.log(errors)
     if(errors.length>0){
       this.registererrors.next(errors);
     }else{
@@ -88,7 +90,7 @@ export class UserService {
     }
     cb()
   }
-  checkloggedin(){
+  checkloggedin(cb){
     console.log("hitting check logged in")
     this.http.get("/user/checksession").subscribe(
       (res)=>{
@@ -98,7 +100,7 @@ export class UserService {
         }else{
           this.current_user.next({})
         }
-        
+        cb()
 
       }
     )
@@ -110,6 +112,7 @@ export class UserService {
     this.http.get("user/logout").subscribe(
       (res)=>{
         console.log(res)
+        this.router.navigate(["/"])
 
       }
 
@@ -126,4 +129,96 @@ export class UserService {
     )
 
   }
+  show_edit_form(id, cb){
+    this.http.get("/verifyadmin").subscribe(
+      (result)=>{
+        console.log("in get callback")
+        console.log(result)
+        if(result["admin"]==false){
+          this.router.navigate(["/"])
+        }
+      }
+    )
+    this.show_edit.next(true)
+    this.edit_target.next({})
+    let users=this.all_users.getValue();
+    let temp={}
+    console.log(this.all_users)
+    for (let i=0;i<users.length; i++){
+      if(users[i]._id==id){
+        
+        temp= Object.assign({}, users[i]);
+        temp["password"]="";
+       
+        
+        this.edit_target.next(temp)
+      }
+    }
+
+
+    
+    
+  }
+  execute_edit(){
+    console.log("cur config",this.edit_target.getValue())
+    let new_user=this.edit_target.getValue();
+    this.http.get("/verifyadmin").subscribe(
+      (status)=>{
+        if (status["admin"]){
+          this.http.post("/user/edit", new_user).subscribe(
+            (res)=>{
+              console.log(res)
+              if(res["status"]=="success"){
+                this.update_all_users();
+      
+              }
+            }
+          )
+
+        }
+
+
+      }
+    )
+
+  }
+  verify_admin(cb){
+    console.log("in verify admin")
+    
+    this.http.get("/verifyadmin").subscribe(
+      (status)=>{
+       
+        console.log("service up")
+        
+        console.log(status)
+        if (status["admin"]==true){
+          this.router.navigate(["/usermanager"])
+        }else{
+          console.log("redirecting")
+          this.router.navigate(["/"])
+        }
+        cb()
+      
+    }
+    )
+  }
+  delete_user(id){
+    console.log(id)
+    this.http.get("/verifyadmin").subscribe(
+      (status)=>{
+        console.log(status)
+        if (status["admin"]==true){
+          this.http.post("/user/delete", {id:id}).subscribe(
+            (res)=>{
+            console.log(res)
+            this.update_all_users()
+            }
+          )
+        }else{
+          console.log("delete did not fire")
+        }
+      }
+    )
+  } 
+
 }

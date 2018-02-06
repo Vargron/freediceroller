@@ -4,3 +4,46 @@
   <button (click)="logout()">logout</button>
 
 </div>
+
+<div id="rolldice">
+  <p> you can just roll dice without creatign a character here</p>
+  <div id ="open roller">
+      <h3>Enter a dice string for example  </h3>
+      <ul>
+        <li>1d8+5</li>
+        <li>10d6+4d8+1d22+14</li>
+      </ul>
+      <p>make sure it contains nothing but numbers, the numberal d, + and - signs</p>
+    
+      <form (submit)="rollString()" >
+        <input type="text" name="rollstring"
+        [(ngModel)]="freeroller.rollstring"
+        >
+        <input type="submit">
+      </form>
+    
+      <p>roller obj{{freeroller|json}}</p>
+      <p>history{{freerollerhistory|json}}</p>
+      <p>errors{{rollerrors|json}}</p>
+    
+      <table>
+        <tr>
+          <th>dice roll</th>
+          <th>result</th>
+          <th>reroll?</th>
+        </tr>
+        <tr *ngFor="let item of freerollerhistory">
+          <td>{{item.roll}}</td>
+          <td>{{item.result}}</td>
+          <td><button (click)=rerollString(item.roll) >reroll?</button></td>
+        </tr>
+      </table>
+    </div>
+
+</div>
+<div id="character_manager">
+  <h1>characters</h1>
+  <h3> add character </h3>
+
+
+</div>

@@ -1,5 +1,57 @@
-<p>
-  usermanager works!
-</p>
+<h1>user manager</h1>
 
-{{all_users|json}}
+<table>
+  <tr>
+    <th>username</th>
+    <th>email</th>
+    <th>id</th>
+    <th>admin</th>
+    <th>edit</th>
+    <th>delte</th>
+
+  </tr>
+  <tr *ngFor="let user of all_users">
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user._id}}</td>
+    <td>{{user.admin}}</td>
+    <td><button (click)="edit(user._id)" >edit</button></td>
+    <td><button (click)="delete(user._id)">delete</button></td>
+  </tr>
+</table>
+
+<div *ngIf="show_edit">
+  <h5>edit user</h5>
+  <form>
+    <label>{{edit_target.username}}</label>
+    <input type="text" name="username" 
+    [(ngModel)]=edit_target.username
+    ><br>
+    <label>email:{{edit_target.email}}</label>
+    <input type="text" name="email" 
+    [(ngModel)]="edit_target.email"
+    ><br>
+    <label>id(not editable): {{edit_target._id}}</label>
+
+    <label>password(leave empty if you don't want to change</label>
+    <input type="text" name="password" 
+    [(ngModel)]=edit_target.password
+    ><br>
+    <label>admin</label>
+    <input type="text" name="admin" 
+    [(ngModel)]=edit_target.admin
+    ><br>
+
+    <button (click)="execute_edit()">submit changes...</button>
+    
+
+  </form>
+
+  {{edit_target|json}}
+
+</div>
+
+
+
+
+

@@ -18,12 +18,24 @@ module.exports=function(app){
     app.get("/user/all", function(req,res){
         user.all(req,res);
     })
+    app.post("/user/edit", function(req,res){
+        user.edit(req,res);
+    })
+
+    app.get("/users/createdefaultadmin", function(req,res){
+        user.defaultadmin(req,res);
+    })
+    app.get("/verifyadmin", function(req,res){
+        user.verifyadmin(req,res);
+    })
+    app.post("/user/delete", function(req,res){
+        user.delete(req,res)
+
+    })
     
 
 
-    // app.get("/",  function(req,res){
-    //     user.index(req,res)
-    // })
+
     app.get("**", function(req,res){
         res.redirect("/")
     })
