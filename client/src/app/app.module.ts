@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { UsermanagerComponent } from './usermanager/usermanager.component'
 import { UserService} from './user.service'
+import { CharacterService} from './character.service';
+import { ViewcharacterComponent } from './viewcharacter/viewcharacter.component'
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { UserService} from './user.service'
     LoginComponent,
     UserhomeComponent,
     UsermanagerComponent,
+    ViewcharacterComponent,
     
   ],
   imports: [
@@ -30,7 +33,7 @@ import { UserService} from './user.service'
     FormsModule,
     HttpClientModule,
   ],
-  providers: [RollService, RoutingService, UserService],
+  providers: [RollService, RoutingService, UserService, CharacterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

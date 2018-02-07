@@ -17,6 +17,7 @@
             
             </ng-container>
             <ng-container *ngIf="current_user.username">
+                    <button [routerLink]="['home']">go to user home</button>
                     <button (click)="logout()"> logout(this will be in production)</button>
             </ng-container>
                 
@@ -35,7 +36,7 @@
 <p>
     depricated troubleshooting only below here
 </p>
-<a [routerLink]="['home']">go to user home</a>
+
 
 <a [routerLink]="['usermanager']">go to usermanager not verified</a>
 

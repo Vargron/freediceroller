@@ -44,6 +44,53 @@
 <div id="character_manager">
   <h1>characters</h1>
   <h3> add character </h3>
+  <form>
+    
+    
+    <label>Name:</label>
+    <input type="text" name="name"
+    [(ngModel)]="new_character.name"
+    >
+    <label>Description:</label>
+    <input  type="text" name="desc"
+    [(ngModel)]="new_character.desc"
+    
+    >
+    <button (click) ="addcharacter()">add character </button>
+  </form>
 
+  {{new_character|json}}
+</div>
+<div>
+
+  <h3>your characters</h3>
+
+  <table>
+    <tr>
+      <th>Name </th>
+      <th>Description:</th>
+      <th>total rolls stored</th>
+      <th>view</th>
+      <th>delete</th>
+    </tr>
+    <tr *ngFor="let char of current_characters">
+      <td>{{char.name}}</td>
+      <td>{{char.desc}}</td>
+      <td>{{char.rolls.length}}</td>
+      <td><button (click)="viewcharacter(char._id)">view </button></td>
+      <td><button (click)="deletecharacter(char._id)">delete</button></td>
+      
+
+    </tr>
+
+
+  </table>
+  {{current_characters|json}}
+</div>
+
+
+
+<div id="testing_buttons">
+  <button (click)="getallcharacters()">test allcharacter function</button>
 
 </div>

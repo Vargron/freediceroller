@@ -45,6 +45,9 @@ export class RollService {
 
 
   }
+  validatestring(rollstring,cb){
+    cb(rollLib.parseRollString(rollstring))
+  }
 
 
 

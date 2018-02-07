@@ -1,5 +1,6 @@
 var mongoose=require("mongoose")
 var user = require(".././controllers/usercontroller.js");
+var character =require(".././controllers/charactercontroller.js")
 var path=require('path')
 //this imports the controller that will serve the pages
 module.exports=function(app){
@@ -31,6 +32,22 @@ module.exports=function(app){
     app.post("/user/delete", function(req,res){
         user.delete(req,res)
 
+    })
+    app.post("/character/add", function(req,res){
+        character.add(req,res);
+    })
+    app.post("/character/searchbyuser", function(req,res){
+        character.searchbyuser(req,res);
+    })
+    app.post("/character/view", function(req,res){
+        character.view(req,res);
+    })
+    app.post("/character/delete", function(req,res){
+        character.delete(req,res);
+    })
+
+    app.post("/character/update", function(req,res){
+        character.update(req,res);
     })
     
 

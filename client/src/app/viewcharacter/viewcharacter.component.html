@@ -1,0 +1,48 @@
+
+
+<h1>{{current_character.name}}'s Profile</h1>
+<p>{{current_character.desc}}</p>
+<h3>add a roll</h3>
+<form>
+  <label>roll name</label>
+  <input type=text name="name"
+  [(ngModel)]="new_roll.name"
+  
+  >
+  <label>dice string</label>
+  <input type=text name="rollstring"
+  [(ngModel)]="new_roll.rollstring"
+  >
+  <button (click)="addroll()">add roll</button>
+</form>
+<table>
+  <tr>
+      <th>name</th>
+      <th>dice</th>
+      <th>roll</th>
+      <th>edit</th>
+      <th>delete</th>
+      <th> up one </th>
+      <th>down one</th>
+
+  </tr>
+  <tr *ngFor="let r of current_character.rolls">
+    <td>{{r.name}}</td>
+    <td>{{r.rollstring}}</td>
+    <td><button>roll dice ph</button></td>
+    <td><button>edit dice ph</button></td>
+    <td><button> delete roll ph</button></td>
+    <td><button> move up one ph</button></td>
+    <td><button> move down one ph</button></td>
+
+  </tr>
+
+
+</table>
+
+<div id="character_roll_log">
+
+</div>
+
+
+{{current_character|json}}

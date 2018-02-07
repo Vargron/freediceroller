@@ -7,10 +7,10 @@ My goal is to have a front end interface  in angular that will:
 
 back end routes will include:
 a. user management:
-1. register
-2. login
-3. edit user(admin only)
-4. delete user(admin only)
+1. register--done
+2. login --done
+3. edit user(admin only)--done
+4. delete user(admin only)--done
 
 b. character management:
 1. create character:
@@ -26,6 +26,24 @@ character={
 
 once i have MVP done I will figure out how to add some sort of ads to the site
 in order to pay for hosting 
+
+next steps:
+1. connect users to characters
+2. finish character add route
+
+3. delete routes for characters
+4. add roll routes for characters
+5. edit roll routes for characters
+6. delte roll routes for characters
+7. move up/ down/ save routes for rolls within characters. 
+
+
+next steps night of feb 6th
+1. finish character delte route stub
+1a. create character edit route/ or change name/desc route that can be done on character page
+2. write roll routes on main page
+3. 
+
 
 
 

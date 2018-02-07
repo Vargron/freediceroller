@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
-import{ FormsModule} from '@angular/forms';
+
 import {Router} from '@angular/router'
 import { RollService } from '../roll.service';
 import {RoutingService} from '../routing.service'
