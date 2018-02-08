@@ -17,9 +17,9 @@
     <input type="submit">
   </form>
 
-  <p>roller obj{{freeroller|json}}</p>
-  <p>history{{freerollerhistory|json}}</p>
-  <p>errors{{rollerrors|json}}</p>
+ 
+  <h5 *ngIf="rollerrors.length>0">errors:{{rollerrors|json}}</h5>
+  <p *ngFor="let e of rollerrors"> {{e}}</p>
 
   <table>
     <tr>
