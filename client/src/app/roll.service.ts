@@ -48,6 +48,17 @@ export class RollService {
   validatestring(rollstring,cb){
     cb(rollLib.parseRollString(rollstring))
   }
+  rollcharstring(roll,cb){
+    console.log(roll)
+    let result={
+      name:roll.name,
+      rollstring:roll.rollstring,
+      result:rollLib.rollString(roll.rollstring),
+    }
+
+    cb(result)
+
+  }
 
 
 

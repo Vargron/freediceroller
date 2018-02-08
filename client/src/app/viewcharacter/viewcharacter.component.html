@@ -2,6 +2,24 @@
 
 <h1>{{current_character.name}}'s Profile</h1>
 <p>{{current_character.desc}}</p>
+
+<button (click)="toggle_edit_character()">Edit Character Details</button>
+<ng-container *ngIf="editing_cur_character">
+  
+    <input type="text" name="name"
+    [(ngModel)]="current_character.name"
+    >
+
+    <input type="text" name="desc"
+    [(ngModel)]="current_character.desc"
+    >
+    <button (click)="submit_edit_character()"> submit edit</button>
+
+  
+
+
+</ng-container>
+
 <h3>add a roll</h3>
 <form>
   <label>roll name</label>
@@ -27,13 +45,39 @@
 
   </tr>
   <tr *ngFor="let r of current_character.rolls">
+    <ng-container *ngIf="r!=edit_roll_target" >
     <td>{{r.name}}</td>
     <td>{{r.rollstring}}</td>
-    <td><button>roll dice ph</button></td>
-    <td><button>edit dice ph</button></td>
-    <td><button> delete roll ph</button></td>
-    <td><button> move up one ph</button></td>
-    <td><button> move down one ph</button></td>
+    
+    <td><button (click)="execute_roll(r)">roll dice ph</button></td>
+    <td><button (click)="show_roll_edit(r)">edit dice ph</button></td>
+    <td><button (click)="delete_roll(r)"> delete roll ph</button></td>
+    <td><button (click)="move_roll_up(r)"> move up one ph</button></td>
+    <td><button (click)="move_roll_down(r)"> move down one ph</button></td>
+    </ng-container>
+
+    <ng-container *ngIf="r==edit_roll_target">
+      
+      
+        <td>
+            <input type="text" name="name"
+            [(ngModel)]="edit_roll_target.name"
+            
+            >
+        </td>
+        <td>
+            <input type="text" name="rollstring"
+            [(ngModel)]="edit_roll_target.rollstring"
+            
+            >
+        </td>
+        <td>
+          <button (click)="submit_roll_edit()">submit roll edit</button>
+        </td>
+
+      
+      <td><button (click)="cancel_roll_edit()">cancel</button></td>
+    </ng-container>
 
   </tr>
 
@@ -41,8 +85,12 @@
 </table>
 
 <div id="character_roll_log">
+  <h3>roll log:</h3>
 
+  
+  <p *ngFor="let r of char_roll_log"> Your used {{r.name}} on {{r.rollstring}} and got a {{r.result}} </p>
+ 
 </div>
 
 
-{{current_character|json}}
+

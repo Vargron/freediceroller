@@ -38,7 +38,19 @@ module.exports={
     },
     delete:function(req,res){
         console.log(req.body)
-        res.json(req.body)
+        Character.remove({_id:req.body.id},
+            (err,result)=>{
+                console.log("err", err)
+                console.log("result", result)
+                if(err){
+                    res.json({status:"error"})
+                }else{
+                    res.json({status:"success"})
+                }
+                
+            }
+        )
+        
     },
     view:function(req,res){
         console.log(req.body)
@@ -55,6 +67,7 @@ module.exports={
         })
         
     },
+
 
 
 
