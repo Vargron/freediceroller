@@ -3,12 +3,30 @@
 </div>
 
 <div id ="open roller">
-  <h3>Enter a dice string for example  </h3>
-  <ul>
-    <li>1d8+5</li>
-    <li>10d6+4d8+1d22+14</li>
-  </ul>
-  <p>make sure it contains nothing but numbers, the numberal d, + and - signs</p>
+  <h3>Enter a dice string ! </h3>
+  <button (click)="explain_dice_string()">What's a dice string?</button>
+  <button (click)="show_explanation()">What's a dice string (inline text)</button>
+  <div id="dice_exp" *ngIf="explanation==true">
+      <p>A dice string is a represenation of a group of dice.</p>
+      <p>For example:</p>
+      <ul>
+        <li>4 six sided dice is 4d6</li>
+        <li>In d20 based rules systems a character rolls 1d20+ their base attack bonus to attack</li>
+        <li>2 eight sided dice with a +3 bonus is 2d8+3</li>
+      
+      </ul>
+      <p>Dice strings should only contain the following characters:</p>
+      <ul>
+        <li>Numerals(0-9) , , </li>
+        <li>"d" or "D"</li>
+        <li>"+", or "-"</li>
+      </ul>
+      <p>in the format: xDy+aDb+c Where x,y, a,b, and c are all numbers</p>
+      <p>You can combine any number of diffrent sized dice and any bonus in this way </p>
+
+  </div>
+
+
 
   <form (submit)="rollString()" >
     <input type="text" name="rollstring"

@@ -1,36 +1,36 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
- <h1> Welcome to Freediceroller.com</h1>
+<div id="header">
+ <h1>Freediceroller.com</h1>
 
  <div>
    
      <ng-container *ngIf="!current_user.username">
-            <a [routerLink]="['']">go to main page</a>
-            <a [routerLink]="['login']">go to login page</a>
+            <button (click)="sendtologin()"> Main</button>
+            <button [routerLink]="['login']">Login</button>
      </ng-container>
-     
-     
-
      <ng-container *ngIf="current_user">
             <ng-container *ngIf="current_user.admin" >
-                <button (click)="sendtousermanager()"> production send to usermanager</button>
+                <button (click)="sendtousermanager()"> Admin Go To Usermanager</button>
             
             </ng-container>
             <ng-container *ngIf="current_user.username">
-                    <button [routerLink]="['home']">go to user home</button>
-                    <button (click)="logout()"> logout(this will be in production)</button>
+                    <button [routerLink]="['home']">Home</button>
+                    <button (click)="logout()"> Logout</button>
             </ng-container>
                 
 
      </ng-container>
+     <button (click)="show_about_us()"> About Us</button>
+
     
 
      
 
 
  </div>
- <p></p>
+ 
 </div>
 <router-outlet></router-outlet>
-
-<p>for any questions contact evan@freediceroller.com</p>
+<div id="footer">
+    <p>for any questions contact info@freediceroller.com</p>
+</div>

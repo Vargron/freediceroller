@@ -3,7 +3,7 @@ module.exports={
 		let numbers=["0","1","2","3","4","5","6","7","8","9"];
 		let check=false;
 		for(let i=0; i<numbers.length;i++){
-			if (numbers[i]==char){
+			if (numbers[i]===char){
 				check=true
 			}
 		}
@@ -19,6 +19,9 @@ module.exports={
 		let check;
 		let curpair=["",""];//stores as [dice size, number of dice]
 		let curargument="num of dice";// switches to "dice size"
+		if (str.length==0){
+			return false
+		}
 
 
 		if (str[0]=="-"){
@@ -50,7 +53,7 @@ module.exports={
 			}else if( checktype=="numberord"){
 				if(this.checknumberchar(str[curindex])){
 					curpair[0]=curpair[0]+str[curindex]
-				}else if(str[curindex]=="d"){
+				}else if(str[curindex]=="d" ||str[curindex]=="D"){
 					curargument="dice size";
 					checktype="number"
 					// console.log("switching to number then number or plus")
@@ -66,7 +69,7 @@ module.exports={
 				if(this.checknumberchar(str[curindex])){
 					curpair[1]=curpair[1]+str[curindex];
 
-				}else if( str[curindex]="+"){
+				}else if( str[curindex]==="+"){
 					if(curpair[3]==-1){
 						rollarr.push([parseInt(curpair[0]),parseInt(curpair[1]), -1])
 					}
@@ -75,18 +78,22 @@ module.exports={
 					checktype="number";
 					curargument="num of dice"
 
-				}else if (str[curindex]=="-"){
+				}else if (str[curindex]==="-"){
 					rollarr.push([parseInt(curpair[0]),parseInt(curpair[1])])
 					curpair=["","", -1]
 					checktype="number";
 					curargument="num of dice"
 
 				}
+				else{
+					return false;
+				}
 			}
 			curindex++
-		}
+		}// breaks while loop
+
 		if(checktype=="numberor+"){
-			if( curpair[2]==-1){
+			if( curpair[2]===-1){
 				rollarr.push([parseInt(curpair[0]),parseInt(curpair[1]), -1])
 			}else{
 				rollarr.push([parseInt(curpair[0]),parseInt(curpair[1])])
@@ -94,7 +101,7 @@ module.exports={
 			curpair=["",""]
 		}
 		if(checktype=="numberord"){
-			if (curpair[2]==-1){
+			if (curpair[2]===-1){
 					rollarr.push([parseInt(curpair[0]),1, -1])
 			}
 			else{

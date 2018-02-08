@@ -14,6 +14,7 @@ export class NonLoggedinComponent implements OnInit {
   freeroller;//bound to form with submit function
   freerollerhistory;//managed by service behavioursubject
   rollerrors;//managed by behavioursubject
+  explanation;
 
 
   constructor(private rservice:RollService, private routes:RoutingService) { 
@@ -36,9 +37,14 @@ export class NonLoggedinComponent implements OnInit {
         this.rollerrors=res;
       }
     )
+    this.rservice.explanation.subscribe(
+      (res)=>{
+        this.explanation=res
+      }
+    )
   }
   rollString(){
-    console.log("hitting submit")
+    // console.log("hitting submit")
     this.rservice.rollstring(this.freeroller, ()=>{
       this.freeroller={
         rollstring:""
@@ -50,7 +56,7 @@ export class NonLoggedinComponent implements OnInit {
     
   }
   rerollString(str){
-    console.log("rerolling", str)
+    // console.log("rerolling", str)
     let reroller={
       rollstring:str
     }
@@ -62,9 +68,16 @@ export class NonLoggedinComponent implements OnInit {
 
   }
   routeToLogin(){
-    console.log("going to login")
+    // console.log("going to login")
     this.routes.gotologin()
 
+  }
+  explain_dice_string(){
+    this.rservice.explain_dice_string()
+  }
+  show_explanation(){
+    console.log("in comp")
+    this.rservice.show_explanation()
   }
 
 }

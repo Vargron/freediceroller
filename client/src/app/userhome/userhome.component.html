@@ -1,31 +1,60 @@
-<h1>welcome {{current_user.username}}</h1>
-{{current_user|json}}
-<div id="userhome.navbar">
-  <button (click)="logout()">logout</button>
+<h1>Welcome {{current_user.username}}!</h1>
 
-</div>
 
 <div id="rolldice">
-  <p> you can just roll dice without creatign a character here</p>
+  
   <div id ="open roller">
-      <h3>Enter a dice string for example  </h3>
-      <ul>
-        <li>1d8+5</li>
-        <li>10d6+4d8+1d22+14</li>
-      </ul>
-      <p>make sure it contains nothing but numbers, the numberal d, + and - signs</p>
+      <h3> you can just roll dice without creatign a character here</h3>
+      <h5>Enter a dice string  </h5>
+      <button (click)="explain_dice_string()"> What's a dice string</button>
+     
+      <button (click)="show_explanation()">What's a dice string (inline text)</button>
+      <div id="dice_exp" *ngIf="explanation==true">
+          <p>A dice string is a represenation of a group of dice.</p>
+          <p>For example:</p>
+          <ul>
+            <li>4 six sided dice is 4d6</li>
+            <li>In d20 based rules systems a character rolls 1d20+ their base attack bonus to attack</li>
+            <li>2 eight sided dice with a +3 bonus is 2d8+3</li>
+          
+          </ul>
+          <p>Dice strings should only contain the following characters:</p>
+          <ul>
+            <li>Numerals(0-9) , , </li>
+            <li>"d" or "D"</li>
+            <li>"+", or "-"</li>
+          </ul>
+          <p>in the format: xDy+aDb+c Where x,y, a,b, and c are all numbers</p>
+          <p>You can combine any number of diffrent sized dice and any bonus in this way </p>
     
-      <form (submit)="rollString()" >
-        <input type="text" name="rollstring"
-        [(ngModel)]="freeroller.rollstring"
-        >
-        <input type="submit">
-      </form>
+      </div>
+
+
+
+     
+     
+      <div id="freeroller">
+          <form (submit)="rollString()" >
+              <input type="text" name="rollstring"
+              [(ngModel)]="freeroller.rollstring"
+              >
+              <input type="submit">
+            </form>
+          
+            <ng-container *ngIf="rollerrors.length>0">
+                
+                <p *ngFor="let e of rollerrors"> Error:{{e}}</p>
+            </ng-container>
+
+
+      </div>
+
+      
+
     
-      <p>roller obj{{freeroller|json}}</p>
-      <p>history{{freerollerhistory|json}}</p>
-      <p>errors{{rollerrors|json}}</p>
-    
+      <div id="roll-history">
+
+      
       <table>
         <tr>
           <th>dice roll</th>
@@ -39,58 +68,62 @@
         </tr>
       </table>
     </div>
+  </div> 
+  <!-- this ends open roller -->
 
 </div>
-<div id="character_manager">
-  <h1>characters</h1>
-  <h3> add character </h3>
-  <form>
-    
-    
-    <label>Name:</label>
-    <input type="text" name="name"
-    [(ngModel)]="new_character.name"
-    >
-    <label>Description:</label>
-    <input  type="text" name="desc"
-    [(ngModel)]="new_character.desc"
-    
-    >
-    <button (click) ="addcharacter()">add character </button>
-  </form>
-
-  {{new_character|json}}
-</div>
-<div>
-
-  <h3>your characters</h3>
-
-  <table>
-    <tr>
-      <th>Name </th>
-      <th>Description:</th>
-      <th>total rolls stored</th>
-      <th>view</th>
-      <th>delete</th>
-    </tr>
-    <tr *ngFor="let char of current_characters">
-      <td>{{char.name}}</td>
-      <td>{{char.desc}}</td>
-      <td>{{char.rolls.length}}</td>
-      <td><button (click)="viewcharacter(char._id)">view </button></td>
-      <td><button (click)="deletecharacter(char._id)">delete</button></td>
+<div id="character-manager">
+  <div id="character-add">
+    <h1>characters</h1>
+    <h3> add character </h3>
+    <form>
       
+      
+      <label>Name:</label>
+      <input type="text" name="name"
+      [(ngModel)]="new_character.name"
+      >
+      <label>Description:</label>
+      <input  type="text" name="desc"
+      [(ngModel)]="new_character.desc"
+      
+      >
+      <button (click) ="addcharacter()">add character </button>
+    </form>
 
-    </tr>
+    
+  </div>
+  <!-- ends character-add -->
+  <div id="character-list">
+
+    <h3>your characters</h3>
+
+    <table>
+      <tr>
+        <th>Name </th>
+        <th>Description:</th>
+        <th>total rolls stored</th>
+        <th>view</th>
+        <th>delete</th>
+      </tr>
+      <tr *ngFor="let char of current_characters">
+        <td>{{char.name}}</td>
+        <td>{{char.desc}}</td>
+        <td>{{char.rolls.length}}</td>
+        <td><button (click)="viewcharacter(char._id)">view </button></td>
+        <td><button (click)="deletecharacter(char._id)">delete</button></td>
+        
+
+      </tr>
 
 
-  </table>
-  {{current_characters|json}}
+    </table>
+    
+  </div>
+  <!-- this ends character list -->
+
 </div>
+<!-- this ends character manager -->
 
 
 
-<div id="testing_buttons">
-  <button (click)="getallcharacters()">test allcharacter function</button>
-
-</div>

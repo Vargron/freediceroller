@@ -38,10 +38,10 @@ export class AppComponent implements OnInit  {
     this.uservice.checkloggedin(
       ()=>{
         if(this.uservice.current_user.getValue()["username"]){
-          console.log("user in session")
+          // console.log("user in session")
           this.router.navigate(["/home"])
         }else{
-          console.log("no user in session")
+          // console.log("no user in session")
           this.router.navigate(["/"])
         }
 
@@ -60,7 +60,13 @@ export class AppComponent implements OnInit  {
     ()=>{
       }
     )
-  }  
+  } 
+  sendtologin(){
+    this.router.navigate([''])
+  }
+  show_about_us(){
+    this.router.navigate(["/aboutus"])
+  }
   
 
 

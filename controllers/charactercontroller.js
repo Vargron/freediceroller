@@ -24,12 +24,12 @@ module.exports={
     searchbyuser:function(req,res){
         //finds allcharacters for a user
         
-        console.log(req.body.user._value["_id"], req.body.user._value)
+        // console.log(req.body.user._value["_id"], req.body.user._value)
         Character.find({author_id:req.body.user._value["_id"]},
             (err, result)=>{
  
-                console.log("err", err)
-                console.log("result", result)
+                // console.log("err", err)
+                // console.log("result", result)
                 res.json(result)
             }
         )
@@ -37,11 +37,11 @@ module.exports={
         
     },
     delete:function(req,res){
-        console.log(req.body)
+        // console.log(req.body)
         Character.remove({_id:req.body.id},
             (err,result)=>{
-                console.log("err", err)
-                console.log("result", result)
+                // console.log("err", err)
+                // console.log("result", result)
                 if(err){
                     res.json({status:"error"})
                 }else{
@@ -53,16 +53,16 @@ module.exports={
         
     },
     view:function(req,res){
-        console.log(req.body)
+        // console.log(req.body)
         Character.find({_id:req.body.id},(err,result)=>{
             res.json(result);
         })
         
     },
     update:function(req,res){
-        console.log(req.body)
+        // console.log(req.body)
         Character.findOneAndUpdate({_id:req.body._id},req.body, (err,result)=>{
-            console.log(result)
+            // console.log(result)
             res.json(result)
         })
         

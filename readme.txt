@@ -9,20 +9,25 @@ the following features are currently enabled
 6. rolls kept in an array within the character class
 7. crud routes for rolls.
 
-additional features that need to be added
+recently completed items this patch:
+1. general site clean up of troubleshooting items--done
+3. figure out why some strings make it through the parser that shouldn't ex "4d8_9"--done 
+4. full unit testing of all routes.-- should be done have friend double check.--done
 
-1. general site clean up of troubleshooting items
-2. basic styling & css 
+additional features that need to be added:
+
+
+1. basic styling & css 
     a. no images
     b. goal is minimal package size
-3. figure out why some strings make it through the parser that shouldn't ex "4d8_9"
 
-4. full unit testing of all routes.-- should be done have friend double check.
 
-5. add google ads /amazon affiliate link so I don't have to burn money to host it
-6. about us section with my and franz's information
+2. add google ads /amazon affiliate link so I don't have to burn money to host it-awaiting first deployment 
+
+3. about us section with my and franz's information
 
 
 mabey features:
-1. clone character/ view other user's characters
+1. clone character/ view other user's characters.
+
 

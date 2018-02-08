@@ -22,7 +22,6 @@ module.exports=function(app){
     app.post("/user/edit", function(req,res){
         user.edit(req,res);
     })
-
     app.get("/users/createdefaultadmin", function(req,res){
         user.defaultadmin(req,res);
     })
@@ -30,8 +29,7 @@ module.exports=function(app){
         user.verifyadmin(req,res);
     })
     app.post("/user/delete", function(req,res){
-        user.delete(req,res)
-
+        user.delete(req,res);
     })
     app.post("/character/add", function(req,res){
         character.add(req,res);

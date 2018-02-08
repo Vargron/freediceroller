@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log("in login ")
+    // console.log("in login ")
     var user=this.loginUser
     this.loginUser={
       username:"",
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
   register(){
     
-    console.log("in register")
+    // console.log("in register")
     var user=this.registerUser;
     this.registerUser={
       username:"",

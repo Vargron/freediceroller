@@ -4,7 +4,8 @@ import { NonLoggedinComponent } from './non-loggedin/non-loggedin.component';
 import { LoginComponent } from './login/login.component';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { UsermanagerComponent} from './usermanager/usermanager.component';
-import { ViewcharacterComponent} from './viewcharacter/viewcharacter.component'
+import { ViewcharacterComponent} from './viewcharacter/viewcharacter.component';
+import { AboutusComponent } from './aboutus/aboutus.component'
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'home', pathMatch: 'full',  component: UserhomeComponent },
   { path: 'usermanager', pathMatch: 'full',  component: UsermanagerComponent },
   { path: 'viewcharacter', pathMatch: 'full',  component: ViewcharacterComponent },
+  { path: 'aboutus', pathMatch: 'full',  component: AboutusComponent },
 
   
 ];

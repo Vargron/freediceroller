@@ -46,7 +46,7 @@ export class ViewcharacterComponent implements OnInit {
     
   }
   addroll(){
-    console.log(this.new_roll)
+    // console.log(this.new_roll)
     this.rservice.validatestring(this.new_roll.rollstring, 
     (test)=>{
       if(!test){
@@ -64,7 +64,7 @@ export class ViewcharacterComponent implements OnInit {
     })
   }
   execute_roll(roll){
-    console.log(roll)
+    // console.log(roll)
     this.rservice.rollcharstring(roll, (result)=>{
       this.cservice.add_to_roll_log(result,
       ()=>{
@@ -81,7 +81,7 @@ export class ViewcharacterComponent implements OnInit {
     })
   }
   show_roll_edit(roll){
-    console.log(roll)
+    // console.log(roll)
     this.cservice.show_roll_edit(roll)
     
   }

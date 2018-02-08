@@ -30,10 +30,10 @@ export class CharacterService implements OnInit  {
 
   }
   find_current_user(cb){
-    console.log("hitting check logged in")
+    // console.log("hitting check logged in")
     this.http.get("/user/checksession").subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         if(res["user"]){
           this.current_user.next(res["user"])
         }else{
@@ -47,13 +47,13 @@ export class CharacterService implements OnInit  {
 
   }
   addcharacter(new_character, cb){
-    console.log(this.current_user.getValue())
+    // console.log(this.current_user.getValue())
     this.http.post("/character/add", {
       user:this.current_user.getValue(),
       character:new_character,
     }).subscribe(
       (result)=>{
-        console.log(result)
+        // console.log(result)
         cb()
       }
      
@@ -68,7 +68,7 @@ export class CharacterService implements OnInit  {
 
     }).subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.current_characters.next(res)
         cb(res)
 
@@ -77,7 +77,7 @@ export class CharacterService implements OnInit  {
     )
   }
   viewcharacter(id){
-    console.log(id)
+    // console.log(id)
     
     this.http.post("/character/view",{id:id}).subscribe(
       (res)=>{
@@ -97,13 +97,13 @@ export class CharacterService implements OnInit  {
 
 
   deletecharacter(id){
-    console.log(id)
+    // console.log(id)
     this.http.post("/character/delete", {id:id}).subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.getallcharacters(
           (res)=>{
-            console.log("in delete call back", res)
+            // console.log("in delete call back", res)
 
           }
         )
@@ -114,12 +114,12 @@ export class CharacterService implements OnInit  {
   addroll(newroll, cb){
     let bob=this.current_character.getValue()
     bob["rolls"].push(newroll)
-    console.log(bob)
+    // console.log(bob)
     
     this.current_character.next(bob)
     this.http.post("/character/update", bob).subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         cb()
       }
     )
@@ -135,7 +135,7 @@ export class CharacterService implements OnInit  {
     cb()
   }
   delete_roll(roll, cb){
-    console.log(roll)
+    // console.log(roll)
     let char=this.current_character.getValue()
     let advance=0;
     
@@ -150,10 +150,10 @@ export class CharacterService implements OnInit  {
     for(let i=0;i<advance;i++){
       char["rolls"].pop()
     }
-    console.log(char)
+    // console.log(char)
     this.http.post("/character/update", char).subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.current_characters.next(res)
         cb()
       }
@@ -169,14 +169,14 @@ export class CharacterService implements OnInit  {
     this.edit_roll_target.next({})
   }
   submit_roll_edit(){
-    console.log("in submit roll edit")
-    console.log(this.edit_roll_target.getValue())
+    // console.log("in submit roll edit")
+    // console.log(this.edit_roll_target.getValue())
     let bob=this.current_character.getValue()
-    console.log(bob)
+    // console.log(bob)
 
     this.http.post("/character/update", bob).subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.getallcharacters(
           (res)=>{
             this.edit_roll_target.next({})
@@ -199,7 +199,7 @@ export class CharacterService implements OnInit  {
   
   move_roll_up(roll){
     let bob=this.current_character.getValue()
-    console.log(bob)
+    // console.log(bob)
     let temp
     let tar= this.find_roll_index(roll)
     if (tar!=0){
@@ -208,7 +208,7 @@ export class CharacterService implements OnInit  {
       bob["rolls"][tar-1]=temp;
       this.http.post("/character/update", bob).subscribe(
         (res)=>{
-          console.log(res)
+          // console.log(res)
           this.current_character.next(bob)
           
         }
@@ -220,7 +220,7 @@ export class CharacterService implements OnInit  {
   }
   move_roll_down(roll){
     let bob=this.current_character.getValue()
-    console.log(bob)
+    // console.log(bob)
     let temp
     let tar= this.find_roll_index(roll)
     if (tar!=bob["rolls"].length-1){
@@ -229,7 +229,7 @@ export class CharacterService implements OnInit  {
       bob["rolls"][tar+1]=temp;
       this.http.post("/character/update", bob).subscribe(
         (res)=>{
-          console.log(res)
+          // console.log(res)
           this.current_character.next(bob)
           
         }
@@ -246,7 +246,7 @@ export class CharacterService implements OnInit  {
     }else{
       this.editing_cur_character.next(false)
     }
-    console.log(this.editing_cur_character.getValue())
+    // console.log(this.editing_cur_character.getValue())
 
   }
   submit_edit_character(){

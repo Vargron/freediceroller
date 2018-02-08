@@ -15,7 +15,8 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { UsermanagerComponent } from './usermanager/usermanager.component'
 import { UserService} from './user.service'
 import { CharacterService} from './character.service';
-import { ViewcharacterComponent } from './viewcharacter/viewcharacter.component'
+import { ViewcharacterComponent } from './viewcharacter/viewcharacter.component';
+import { AboutusComponent } from './aboutus/aboutus.component'
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ViewcharacterComponent } from './viewcharacter/viewcharacter.component'
     UserhomeComponent,
     UsermanagerComponent,
     ViewcharacterComponent,
+    AboutusComponent,
     
   ],
   imports: [

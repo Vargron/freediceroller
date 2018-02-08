@@ -20,6 +20,7 @@ export class UserhomeComponent implements OnInit {
   current_user;
   new_character;
   current_characters;
+  explanation;
   
 
 
@@ -72,6 +73,12 @@ export class UserhomeComponent implements OnInit {
         
       }
     )
+    this.rservice.explanation.subscribe(
+      (res)=>{
+        this.explanation=res
+      }
+      
+    )
 
 
   }
@@ -80,7 +87,7 @@ export class UserhomeComponent implements OnInit {
 
   }
   rollString(){
-    console.log("hitting submit")
+    // console.log("hitting submit")
     this.rservice.rollstring(this.freeroller, ()=>{
       this.freeroller={
         rollstring:""
@@ -93,7 +100,7 @@ export class UserhomeComponent implements OnInit {
     
   }
   rerollString(str){
-    console.log("rerolling", str)
+    // console.log("rerolling", str)
     let reroller={
       rollstring:str,
     }
@@ -105,17 +112,12 @@ export class UserhomeComponent implements OnInit {
 
   }
   routeToLogin(){
-    console.log("going to login");
+    // console.log("going to login");
     this.routes.gotologin();
 
   }
   addcharacter(){
-    
-    console.log(this.new_character);
-
-
-
-
+    // console.log(this.new_character);
     this.cservice.addcharacter(this.new_character, 
     ()=>{
       this.new_character.name="";
@@ -127,20 +129,29 @@ export class UserhomeComponent implements OnInit {
   getallcharacters(){
     this.cservice.getallcharacters( 
       (result)=>{
-        console.log(result)
+        // console.log(result)
 
     })
   }
 
   viewcharacter(id){
-    console.log(id)
+    // console.log(id)
     this.cservice.viewcharacter(id)
     
   }
   deletecharacter(id){
-    console.log(id)
+    // console.log(id)
     this.cservice.deletecharacter(id)
   }
+  explain_dice_string(){
+    this.rservice.explain_dice_string()
+  }
+  show_explanation(){
+    this.rservice.show_explanation()
+    
+  }
+    
+  
 
 
 }

@@ -120,11 +120,11 @@ module.exports={
 
         User.find({_id:req.body._id},
             (err, user)=>{
-                console.log(user, "found user")
+                // console.log(user, "found user")
                 let new_user={}
                 bcrypt.hash(req.body.password, 10, 
                     (err, hash)=>{
-                        console.log(user._id)
+                        // console.log(user._id)
                         if (req.body.password==""){
                             new_user={
                                 // _id:user._id,
@@ -211,31 +211,31 @@ module.exports={
     },
     checkadmin:function(req,res){
         if (req.session==undefined){
-            console.log("no session");
+            // console.log("no session");
             return false;
         }
         if (req.session.user==undefined){
-            console.log("not in session")
+            // console.log("not in session")
             return false
         }
         User.find({_id:req.session.user._id}, 
             (err, result)=>{
                 if (err){
-                    console.log("searcherror");
+                    // console.log("searcherror");
                     return false;
                 }
                 if(result.length!=1){
-                    console.log("user not in database or too many users");
+                    // console.log("user not in database or too many users");
                     return false
                 }
                 else{
                     if(result[0].admin){
-                        console.log("user is admin")
+                        // console.log("user is admin")
                         return true;
 
                     }
                     else{
-                        console.log("user exists but not admin")
+                        // console.log("user exists but not admin")
                         return false
                     }
 
@@ -247,11 +247,11 @@ module.exports={
     },
     verifyadmin:function(req,res){
         if (req.session==undefined){
-            console.log("no session");
+            // console.log("no session");
             res.json({admin:false})
         }
         else if (req.session.user==undefined){
-            console.log("not in session")
+            // console.log("not in session")
             
             res.json({admin:false})
         }
@@ -259,21 +259,21 @@ module.exports={
             User.find({_id:req.session.user._id}, 
                 (err, result)=>{
                     if (err){
-                        console.log("searcherror");
+                        // console.log("searcherror");
                         res.json({admin:false});
                     }
                     if(result.length!=1){
-                        console.log("user not in database or too many users");
+                        // console.log("user not in database or too many users");
                         res.json({admin:false});
                     }
                     else{
                         if(result[0].admin){
-                            console.log("user is admin")
+                            // console.log("user is admin")
                             res.json({admin:true});
     
                         }
                         else{
-                            console.log("user exists but not admin")
+                            // console.log("user exists but not admin")
                             res.json({admin:false});
                         }
     
@@ -290,7 +290,7 @@ module.exports={
         
     },
     delete:function(req,res){
-        console.log(req.body.id)
+        // console.log(req.body.id)
 
         if(req.session.user._id==req.body.id){
             res.json({error:"you cannot delte your self"})

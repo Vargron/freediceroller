@@ -18,10 +18,10 @@ export class UserService {
 
    login(user,cb){
      // this will go in to the back end and check to see if that user name exist and bcrypt the password.
-     console.log("inservice", user)
+    //  console.log("inservice", user)
      this.http.post("/user/login", user).subscribe(
        (result)=>{
-        console.log(result)
+        // console.log(result)
         if(result["status"]=="sucess"){
           this.current_user.next(result["user"])
           this.router.navigate(["/home"])
@@ -55,7 +55,7 @@ export class UserService {
         return false;
       }
     }
-    console.log("inservice", user)
+    // console.log("inservice", user)
     let errors=[];
     let tests =[
       [user.password==user.passwordcon, "passwords must match"],
@@ -74,13 +74,13 @@ export class UserService {
     if(errors.length>0){
       this.registererrors.next(errors);
     }else{
-      console.log("going to back end")
+      // console.log("going to back end")
       this.http.post("../user/create", user).subscribe(
         (res)=>{
-          console.log(res)
+          // console.log(res)
           if(res["status"]!="sucess"){
             this.registererrors.next([res["status"]])
-            console.log(res["status"])
+            // console.log(res["status"])
           }
           else{
             alert("registration sucess")
@@ -91,10 +91,10 @@ export class UserService {
     cb()
   }
   checkloggedin(cb){
-    console.log("hitting check logged in")
+    // console.log("hitting check logged in")
     this.http.get("/user/checksession").subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         if(res["user"]){
           this.current_user.next(res["user"])
         }else{
@@ -108,10 +108,10 @@ export class UserService {
   }
   logout(){
     this.current_user.next({})
-    console.log(this.current_user.getValue())
+    // console.log(this.current_user.getValue())
     this.http.get("user/logout").subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.router.navigate(["/"])
 
       }
@@ -122,7 +122,7 @@ export class UserService {
   update_all_users(){
     this.http.get("/user/all").subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.all_users.next(res)
 
       }
@@ -132,8 +132,8 @@ export class UserService {
   show_edit_form(id, cb){
     this.http.get("/verifyadmin").subscribe(
       (result)=>{
-        console.log("in get callback")
-        console.log(result)
+        // console.log("in get callback")
+        // console.log(result)
         if(result["admin"]==false){
           this.router.navigate(["/"])
         }
@@ -160,14 +160,14 @@ export class UserService {
     
   }
   execute_edit(){
-    console.log("cur config",this.edit_target.getValue())
+    // console.log("cur config",this.edit_target.getValue())
     let new_user=this.edit_target.getValue();
     this.http.get("/verifyadmin").subscribe(
       (status)=>{
         if (status["admin"]){
           this.http.post("/user/edit", new_user).subscribe(
             (res)=>{
-              console.log(res)
+              // console.log(res)
               if(res["status"]=="success"){
                 this.update_all_users();
       
@@ -183,18 +183,17 @@ export class UserService {
 
   }
   verify_admin(cb){
-    console.log("in verify admin")
+    // console.log("in verify admin")
     
     this.http.get("/verifyadmin").subscribe(
       (status)=>{
        
-        console.log("service up")
-        
-        console.log(status)
+        // console.log("service up")
+        // console.log(status)
         if (status["admin"]==true){
           this.router.navigate(["/usermanager"])
         }else{
-          console.log("redirecting")
+          // console.log("redirecting")
           this.router.navigate(["/"])
         }
         cb()
@@ -203,19 +202,19 @@ export class UserService {
     )
   }
   delete_user(id){
-    console.log(id)
+    // console.log(id)
     this.http.get("/verifyadmin").subscribe(
       (status)=>{
-        console.log(status)
+        // console.log(status)
         if (status["admin"]==true){
           this.http.post("/user/delete", {id:id}).subscribe(
             (res)=>{
-            console.log(res)
+            // console.log(res)
             this.update_all_users()
             }
           )
         }else{
-          console.log("delete did not fire")
+          // console.log("delete did not fire")
         }
       }
     )
