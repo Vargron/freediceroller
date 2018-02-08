@@ -24,7 +24,7 @@ additional features that need to be added:
 
 2. add google ads /amazon affiliate link so I don't have to burn money to host it-awaiting first deployment 
 
-3. about us section with my and franz's information
+3. about us section with my and franz's information-- mine is done, need franz's
 
 
 mabey features:
