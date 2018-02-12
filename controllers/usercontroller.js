@@ -19,11 +19,11 @@ module.exports={
             if(err){
                 // console.log(err)
                 res.json({status:"failed on hash"})
-                
+
             }
             else{
                 req.body["passhash"]=hash;
-                User.find({username:req.body.username}, 
+                User.find({username:req.body.username},
                     (err, result)=>{
                         // console.log(result)
                         if(result.length!=0){
@@ -37,22 +37,22 @@ module.exports={
                                     res.json({status:"sucess"})
                                 }
                             })
-                            
+
                         }
-                       
-                        
+
+
                     })
-                
+
 
             }
         })
 
-        
+
     },
 
     login:function(req,res){
         // console.log("hitting login")
-        User.find({username:req.body.username}, 
+        User.find({username:req.body.username},
         (err, userresult)=>{
             // console.log(result, req.body)
             if(userresult.length==0){
@@ -77,8 +77,8 @@ module.exports={
                         req.session.save()
                         // console.log(req.session)
                         // console.log(session.id)
-                        
-        
+
+
                     }else{
                         res.json({
                             status:"error",
@@ -87,7 +87,7 @@ module.exports={
                     }
                 })
             }
-        })      
+        })
     },
     checksession:function(req,res){
         // console.log(req.session)
@@ -98,7 +98,7 @@ module.exports={
         }else{
             res.json({status:"failure"})
         }
-       
+
     },
     logout:function(req,res){
         req.session.user=null;
@@ -107,8 +107,8 @@ module.exports={
         res.json({status:"sucess"});
     },
     all:function(req,res){
-        
-        User.find({}, 
+
+        User.find({},
         (err,result)=>{
             res.json(result)
 
@@ -122,7 +122,7 @@ module.exports={
             (err, user)=>{
                 // console.log(user, "found user")
                 let new_user={}
-                bcrypt.hash(req.body.password, 10, 
+                bcrypt.hash(req.body.password, 10,
                     (err, hash)=>{
                         // console.log(user._id)
                         if (req.body.password==""){
@@ -131,26 +131,26 @@ module.exports={
                                 username:req.body.username,
                                 passhash:user.passhash,
                                 admin:req.body.admin,
-        
+
                             }
                         }
                         else{
-         
+
                             new_user={
                                 // _id:user._id,
                                 username:req.body.username,
                                 passhash:hash,
                                 admin:req.body.admin,
-        
+
                             }
-                        
-        
+
+
                         }
-                
+
                         // console.log(new_user, "requested changes")
-                        
-                       
-                        
+
+
+
                         // console.log(req.body._id)
                         User.findOneAndUpdate({_id:req.body._id}, new_user,
                             (err, result)=>{
@@ -162,51 +162,55 @@ module.exports={
                                 else{
                                     res.json({status:"success"})
                                 }
-                                
+
                             }
                         )
-                        
+
                     }
-                )      
+                )
             }
         )
-    
 
-                    
-        
-        
-                
-        
+
+
+
+
+
+
     },
     // this function is to avoid creating an admin manualy in the database to acces the user manager
     defaultadmin:function(req,res){
-        User.find({admin:true}, 
+        User.find({admin:true},
          (err, result)=>{
-            bcrypt.hash("hammerthis", 10, 
-                (err, hash)=>{
-                    if(result.length>0){
+            console.log(result)
+            if(result.length==0){
+                bcrypt.hash("hammerthis", 10,
+                    (err, hash)=>{
 
-                        let thor=new User({
-                            username:"thor",
-                            email:"thor@thor.com",
-                            passhash:hash,
-                            admin:true,
-                
-                        })
-                        thor.save()
-                        res.json({sucess:"sucess"})
 
-                    }
-                    else{
-                        res.json({status:"failure, there is already an admin"})
-                    }
-                }
-            )
+                            let thor=new User({
+                                username:"thor",
+                                email:"thor@thor.com",
+                                passhash:hash,
+                                admin:true,
+
+                            })
+                            thor.save()
+                            res.json({sucess:"sucess"})
+
+                        }
+
+
+
+                )
+            }else{
+                res.json({status:"failure, there is already an admin"})
+            }
 
         })
 
 
-       
+
 
     },
     checkadmin:function(req,res){
@@ -218,7 +222,7 @@ module.exports={
             // console.log("not in session")
             return false
         }
-        User.find({_id:req.session.user._id}, 
+        User.find({_id:req.session.user._id},
             (err, result)=>{
                 if (err){
                     // console.log("searcherror");
@@ -241,7 +245,7 @@ module.exports={
 
 
                 }
-                
+
             }
         )
     },
@@ -252,11 +256,11 @@ module.exports={
         }
         else if (req.session.user==undefined){
             // console.log("not in session")
-            
+
             res.json({admin:false})
         }
         else{
-            User.find({_id:req.session.user._id}, 
+            User.find({_id:req.session.user._id},
                 (err, result)=>{
                     if (err){
                         // console.log("searcherror");
@@ -270,24 +274,24 @@ module.exports={
                         if(result[0].admin){
                             // console.log("user is admin")
                             res.json({admin:true});
-    
+
                         }
                         else{
                             // console.log("user exists but not admin")
                             res.json({admin:false});
                         }
-    
-    
+
+
                     }
-                    
+
                 }
             )
 
         }
 
-        
-        
-        
+
+
+
     },
     delete:function(req,res){
         // console.log(req.body.id)
@@ -306,16 +310,16 @@ module.exports={
                     }
                 }
             )
-            
+
         }
-        
+
     }
 
-    
-    
-    
-        
-    
+
+
+
+
+
 
 
 
