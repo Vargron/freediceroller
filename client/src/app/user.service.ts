@@ -164,12 +164,16 @@ export class UserService {
     let new_user=this.edit_target.getValue();
     this.http.get("/verifyadmin").subscribe(
       (status)=>{
+        console.log(status)
         if (status["admin"]){
           this.http.post("/user/edit", new_user).subscribe(
             (res)=>{
+              console.log(res)
               // console.log(res)
               if(res["status"]=="success"){
                 this.update_all_users();
+                this.edit_target.next({})
+                this.show_edit.next(false)
       
               }
             }
@@ -183,20 +187,11 @@ export class UserService {
 
   }
   verify_admin(cb){
-    // console.log("in verify admin")
+    // operates call back on a bool for admin
     
     this.http.get("/verifyadmin").subscribe(
       (status)=>{
-       
-        // console.log("service up")
-        // console.log(status)
-        if (status["admin"]==true){
-          this.router.navigate(["/usermanager"])
-        }else{
-          // console.log("redirecting")
-          this.router.navigate(["/"])
-        }
-        cb()
+        cb(status["admin"])
       
     }
     )

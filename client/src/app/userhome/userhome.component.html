@@ -1,16 +1,29 @@
-<h1>Welcome {{current_user.username}}!</h1>
+<div align="center" class="container-fluid">
+
+<div class="col-md-12">
+    <h1>Welcome {{current_user.username}}!</h1>
+</div>
 
 
-<div id="rolldice">
+
+<div id="rolldice" >
   
-  <div id ="open roller">
-      <h3> you can just roll dice without creatign a character here</h3>
-      <h5>Enter a dice string  </h5>
-      <button (click)="explain_dice_string()"> What's a dice string</button>
-     
-      <button (click)="show_explanation()">What's a dice string (inline text)</button>
-      <div id="dice_exp" *ngIf="explanation==true">
-          <p>A dice string is a represenation of a group of dice.</p>
+  <div id ="open roller" align="center" class="panel panel-default col-md-5">
+  
+  <div class="panel-heading ">
+      <h3>Enter a dice string ! </h3>
+      <button (click)="show_explanation()" class="btn btn-info" >What's a dice string ?</button>
+  </div>
+  <div class="panel-body">
+    
+    
+    
+    <div id="dice_exp" *ngIf="explanation==true" class="alert alert-info" role="alert">
+      
+        
+         
+
+          <h4>A dice string is a represenation of a group of dice.</h4>
           <p>For example:</p>
           <ul>
             <li>4 six sided dice is 4d6</li>
@@ -26,79 +39,94 @@
           </ul>
           <p>in the format: xDy+aDb+c Where x,y, a,b, and c are all numbers</p>
           <p>You can combine any number of diffrent sized dice and any bonus in this way </p>
-    
-      </div>
-
-
-
-     
-     
-      <div id="freeroller">
-          <form (submit)="rollString()" >
-              <input type="text" name="rollstring"
-              [(ngModel)]="freeroller.rollstring"
-              >
-              <input type="submit">
-            </form>
-          
-            <ng-container *ngIf="rollerrors.length>0">
-                
-                <p *ngFor="let e of rollerrors"> Error:{{e}}</p>
-            </ng-container>
-
-
-      </div>
-
-      
-
-    
-      <div id="roll-history">
-
-      
-      <table>
-        <tr>
-          <th>dice roll</th>
-          <th>result</th>
-          <th>reroll?</th>
-        </tr>
-        <tr *ngFor="let item of freerollerhistory">
-          <td>{{item.roll}}</td>
-          <td>{{item.result}}</td>
-          <td><button (click)=rerollString(item.roll) >reroll?</button></td>
-        </tr>
-      </table>
+        
     </div>
-  </div> 
+
+
+
+    <form (submit)="rollString()" >
+        <div class="form-group">
+          <input type="text" name="rollstring"
+          [(ngModel)]="freeroller.rollstring"
+          class="form-control"
+          >
+        
+      <input type="submit" class="btn btn-secondary">
+    </div>
+  </form>
+
+ 
+  
+  <p *ngFor="let e of rollerrors" class="alert alert-danger"> {{e}}</p>
+
+  <table *ngIf="freerollerhistory.length>0"  class="table table-striped table-bordered">
+    <tr>
+      <th>Dice Roll String</th>
+      <th>Result</th>
+      <th>Reroll Dice?</th>
+    </tr>
+    <tr *ngFor="let item of freerollerhistory">
+      <td>{{item.roll}}</td>
+      <td>{{item.result}}</td>
+      <td><button (click)=rerollString(item.roll) >Reroll?</button></td>
+    </tr>
+  </table>
+
+
+</div>
+
+</div>
   <!-- this ends open roller -->
 
 </div>
-<div id="character-manager">
-  <div id="character-add">
-    <h1>characters</h1>
-    <h3> add character </h3>
-    <form>
-      
-      
-      <label>Name:</label>
-      <input type="text" name="name"
-      [(ngModel)]="new_character.name"
-      >
-      <label>Description:</label>
-      <input  type="text" name="desc"
-      [(ngModel)]="new_character.desc"
-      
-      >
-      <button (click) ="addcharacter()">add character </button>
-    </form>
+<div id="character-manager" class="panel panel-default col-md-7">
+
+    
+  
+  <div id="character-add" class="panel panel-default">
+
+    <div class="panel-heading">
+        <h3>Add Character</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal">
+        <div class="form-group">
+            <label for="cname" class="control-label">Name:</label>
+            <input type="text" name="name"
+            [(ngModel)]="new_character.name"
+            class="form-control"
+            id="cname"
+            >
+        </div>
+        <div class="form-group">
+            <label for="cdesc" class="control-label">Description:</label>
+            <input  type="text" name="desc"
+            [(ngModel)]="new_character.desc"
+            class="form-control"
+            id="cdesc"
+            >
+
+        </div>
+
+
+          
+
+          <button (click) ="addcharacter()" class="btn btn-secondary">add character </button>
+        </form>
+
+    </div>
+
 
     
   </div>
   <!-- ends character-add -->
-  <div id="character-list">
+  <div id="character-list" class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Your Characters</h3>
+    </div>
+    
 
-    <h3>your characters</h3>
-
-    <table>
+    <table class="table table-striped table-bordered">
       <tr>
         <th>Name </th>
         <th>Description:</th>
@@ -110,8 +138,8 @@
         <td>{{char.name}}</td>
         <td>{{char.desc}}</td>
         <td>{{char.rolls.length}}</td>
-        <td><button (click)="viewcharacter(char._id)">view </button></td>
-        <td><button (click)="deletecharacter(char._id)">delete</button></td>
+        <td><button (click)="viewcharacter(char._id)" class="btn btn-default"> view </button></td>
+        <td><button (click)="deletecharacter(char._id)" class="btn btn-default">delete</button></td>
         
 
       </tr>
@@ -125,5 +153,5 @@
 </div>
 <!-- this ends character manager -->
 
-
+</div>
 

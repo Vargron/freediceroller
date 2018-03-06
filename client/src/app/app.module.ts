@@ -15,8 +15,11 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { UsermanagerComponent } from './usermanager/usermanager.component'
 import { UserService} from './user.service'
 import { CharacterService} from './character.service';
+import { ProductService } from './product.service'
 import { ViewcharacterComponent } from './viewcharacter/viewcharacter.component';
-import { AboutusComponent } from './aboutus/aboutus.component'
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductsManagerComponent } from './products-manager/products-manager.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { AboutusComponent } from './aboutus/aboutus.component'
     UsermanagerComponent,
     ViewcharacterComponent,
     AboutusComponent,
+    ProductsComponent,
+    ProductsManagerComponent,
     
   ],
   imports: [
@@ -35,7 +40,7 @@ import { AboutusComponent } from './aboutus/aboutus.component'
     FormsModule,
     HttpClientModule,
   ],
-  providers: [RollService, RoutingService, UserService, CharacterService],
+  providers: [RollService, RoutingService, UserService, CharacterService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

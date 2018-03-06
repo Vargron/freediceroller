@@ -1,59 +1,78 @@
-<div>
-
-</div>
-
-<div id ="open roller">
-  <h3>Enter a dice string ! </h3>
-  <button (click)="explain_dice_string()">What's a dice string?</button>
-  <button (click)="show_explanation()">What's a dice string (inline text)</button>
-  <div id="dice_exp" *ngIf="explanation==true">
-      <p>A dice string is a represenation of a group of dice.</p>
-      <p>For example:</p>
-      <ul>
-        <li>4 six sided dice is 4d6</li>
-        <li>In d20 based rules systems a character rolls 1d20+ their base attack bonus to attack</li>
-        <li>2 eight sided dice with a +3 bonus is 2d8+3</li>
-      
-      </ul>
-      <p>Dice strings should only contain the following characters:</p>
-      <ul>
-        <li>Numerals(0-9) , , </li>
-        <li>"d" or "D"</li>
-        <li>"+", or "-"</li>
-      </ul>
-      <p>in the format: xDy+aDb+c Where x,y, a,b, and c are all numbers</p>
-      <p>You can combine any number of diffrent sized dice and any bonus in this way </p>
+<div class="container-fluid">
+  <div class="col-md-3">
 
   </div>
 
 
+<div id ="open roller" align="center" class="panel panel-default col-md-6">
+  
+  <div class="panel-heading ">
+      <h3>Enter a dice string ! </h3>
+      <button (click)="show_explanation()" class="btn btn-info" >What's a dice string ?</button>
+  </div>
+  <div class="panel-body">
+    
+    
+    
+    <div id="dice_exp" *ngIf="explanation==true" class="alert alert-info" role="alert">
+      
+        
+         
 
-  <form (submit)="rollString()" >
-    <input type="text" name="rollstring"
-    [(ngModel)]="freeroller.rollstring"
-    >
-    <input type="submit">
+          <h4>A "Dice String" is a represenation of a group of dice.</h4>
+          <p>For example:</p>
+          <ul>
+            <li>4 six sided dice is 4d6</li>
+            <li>In d20 based rules systems a character rolls 1d20+ their base attack bonus to attack</li>
+            <li>2 eight sided dice with a +3 bonus is 2d8+3</li>
+          
+          </ul>
+          <p>Dice strings should only contain the following characters:</p>
+          <ul>
+            <li>Numerals(0-9) , , </li>
+            <li>"d" or "D"</li>
+            <li>"+", or "-"</li>
+          </ul>
+          <p>in the format:</p>
+            <p> xDy+aDb+c </p>
+             <p> Where x,y, a,b, and c are all numbers</p>
+          <p>You can combine any number of different sized dice and any bonus in this way </p>
+        
+    </div>
+
+
+
+    <form (submit)="rollString()" >
+        <div class="form-group">
+          <input type="text" name="rollstring"
+          [(ngModel)]="freeroller.rollstring"
+          class="form-control"
+          >
+        
+      <input type="submit" class="btn btn-secondary">
+    </div>
   </form>
 
  
-  <h5 *ngIf="rollerrors.length>0">errors:{{rollerrors|json}}</h5>
-  <p *ngFor="let e of rollerrors"> {{e}}</p>
+  
+  <p *ngFor="let e of rollerrors" class="alert alert-danger"> {{e}}</p>
 
-  <table>
+  <table *ngIf="freerollerhistory.length>0"  class="table table-striped table-bordered">
     <tr>
-      <th>dice roll</th>
-      <th>result</th>
-      <th>reroll?</th>
+      <th>Dice Roll String</th>
+      <th>Result</th>
+      <th>Reroll Dice?</th>
     </tr>
     <tr *ngFor="let item of freerollerhistory">
       <td>{{item.roll}}</td>
       <td>{{item.result}}</td>
-      <td><button (click)=rerollString(item.roll) >reroll?</button></td>
+      <td><button (click)=rerollString(item.roll) >Reroll?</button></td>
     </tr>
   </table>
 
 
+</div>
 
-
+</div>
 </div>
 

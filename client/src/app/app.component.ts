@@ -1,6 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 import { Router }  from '@angular/router';
 import { UserService }  from './user.service';
+import { ProductService } from './product.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit  {
  
   current_user;
 
-  constructor(private uservice:UserService, private router:Router){
+  constructor(private uservice:UserService, private router:Router, private pservice:ProductService){
 
   }
 
@@ -47,6 +48,11 @@ export class AppComponent implements OnInit  {
 
       }
     )
+    this.pservice.update_all_products(
+      (cb)=>{
+
+      }
+    )
   }
   logout(){
     this.uservice.logout()
@@ -57,7 +63,13 @@ export class AppComponent implements OnInit  {
   sendtousermanager(){
     
     this.uservice.verify_admin(
-    ()=>{
+    (res)=>{
+        if (res){
+          this.router.navigate(["/usermanager"])
+        }else{
+          // console.log("redirecting")
+          this.router.navigate(["/"])
+        }
       }
     )
   } 
@@ -66,6 +78,23 @@ export class AppComponent implements OnInit  {
   }
   show_about_us(){
     this.router.navigate(["/aboutus"])
+  }
+  show_products(){
+    this.router.navigate(['/products'])
+  }
+  show_products_manager(){
+    this.uservice.verify_admin(
+      (res)=>{
+        console.log(res)
+        if(res){
+          this.router.navigate(['/productsmanager'])
+        }
+        else{
+          this.router.navigate(['/'])
+        }
+        
+      }
+    )
   }
   
 

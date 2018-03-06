@@ -1,37 +1,41 @@
-<div id="mainwrapper">
-<div id="header">
- <h1>Freediceroller.com</h1>
+<div id="primewrapper">
 
- <div>
-   
-     <ng-container *ngIf="!current_user.username">
-            <button (click)="sendtologin()"> Main</button>
-            <button [routerLink]="['login']">Login</button>
-     </ng-container>
-     <ng-container *ngIf="current_user">
-            <ng-container *ngIf="current_user.admin" >
-                <button (click)="sendtousermanager()"> Admin Go To Usermanager</button>
-            
+
+<div id="header" class="jumbotron">
+ <h1 align="center">Freediceroller.com</h1>
+    <div align="center">
+
+
+        <div class="btn-group" >
+        
+            <ng-container *ngIf="!current_user.username">
+                    <button (click)="sendtologin()" class="btn btn-primary"> Main</button>
+                    <button [routerLink]="['login']" class="btn btn-primary">Login/Register</button>
             </ng-container>
-            <ng-container *ngIf="current_user.username">
-                    <button [routerLink]="['home']">Home</button>
-                    <button (click)="logout()"> Logout</button>
+            <ng-container *ngIf="current_user">
+                    <ng-container *ngIf="current_user.admin" >
+                        <button (click)="sendtousermanager()" class="btn btn-primary"> Admin Go To Usermanager</button>
+                        <button (click)="show_products_manager()" class="btn btn-primary"> Admin Go to Products manager</button>
+                    </ng-container>
+                    <ng-container *ngIf="current_user.username">
+                            <button [routerLink]="['home']" class="btn btn-primary">Home</button>
+                            <button (click)="logout()" class="btn btn-primary"> Logout</button>
+                    </ng-container>
+                        
+
             </ng-container>
-                
-
-     </ng-container>
-     <button (click)="show_about_us()"> About Us</button>
-
-    
-
-     
-
-
- </div>
- 
+            <button (click)="show_about_us()" class="btn btn-primary"> About Us</button>
+            <button (click)="show_products()" class="btn btn-primary">Cool Roleplaying Products </button>
+        
+        </div>
+    </div>
 </div>
 <router-outlet></router-outlet>
-<div id="footer">
-    <h3>for any questions contact info@freediceroller.com</h3>
+<div id="footer" class="panel panel-default col-md-12" align="center">
+        <div class="panel-body">
+
+        
+        <h5>Questions? contact info@freediceroller.com</h5>
+        </div>
 </div>
 </div>

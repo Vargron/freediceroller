@@ -1,0 +1,109 @@
+<div class="panel panel-default">
+
+
+  <div class="panel-heading">
+    <h3>Products Manager</h3>
+  </div>
+
+  <div class="panel-body">
+    <h5>add a product</h5>
+    <form>
+      <label>product name:</label>
+      <input type="text"
+      name="name"
+      [(ngModel)]="new_product.name"
+      >
+      <label>display order(int, strings "top", "side" will theroreticaly be a banner option) :</label>
+      <input type="text"
+      name="name"
+      [(ngModel)]="new_product.display">
+      <label> product description:</label>
+      <input type="textarea"
+      
+      name="desc"
+      [(ngModel)]="new_product.desc">
+      <label> product link (use our affiliate link):</label>
+      <input type="text" 
+      name="link"
+      [(ngModel)]="new_product.link">
+      <label>api call for image if applicable</label>
+      <input type="text"
+      name="name"
+      [(ngModel)]="new_product.img_link">
+      <button (click)="addproduct()">add product to back end</button>
+
+
+    </form>
+
+    
+    <h3>test links before upload</h3>
+    <img src="{{new_product.img_link}}" alt="link does not work">
+    <a href="{{new_product.link}}">test link</a>
+    <button (click)="update_all_products()"
+    >test all products update</button>
+    
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>product name/link</th>
+        <th>display order</th>
+        <th>Description</th>
+        <th>image/link</th>
+        <th >edit</th>
+        <th>delete</th>
+        <th>ids</th>
+      </tr>
+      <tr *ngFor="let p of all_products">
+        <td><a href="{{p.link}}">{{p.name}}</a></td>
+        <td>{{p.display}}</td>
+        <td>{{p.desc}}</td>
+        <td><a href="{{p.link}}"><img src="{{p.img_link}}" alt=""></a></td>
+        <td > <button (click)="edit(p._id)">edit</button></td>
+        <td *ngIf="p._id==delete_target"> are you sure?<button (click)="delete(p._id)">Yes</button> <button (click)="hide_delete()">No</button></td>
+        <td *ngIf="p._id!=delete_target"> <button (click)="show_delete(p._id)">X</button></td>
+        <td>{{p._id}}</td>
+      </tr>
+
+
+    </table>
+    <ng-container *ngIf="edit_product._id">
+    <h3 >edit product</h3>
+    <form>
+        <form>
+          <label>product id: {{edit_product._id}}</label>
+            <label>product name:</label>
+            <input type="text"
+            name="name"
+            [(ngModel)]="edit_product.name"
+            >
+            <label>display order(int, strings "top", "side" will theroreticaly be a banner option) :</label>
+            <input type="text"
+            name="display"
+            [(ngModel)]="edit_product.display">
+            <label> product description:</label>
+            <input type="textarea"
+            
+            name="desc"
+            [(ngModel)]="edit_product.desc">
+            <label> product link (use our affiliate link):</label>
+            <input type="text" 
+            name="link"
+            [(ngModel)]="edit_product.link">
+            <label>api call for image if applicable</label>
+            <input type="text"
+            name="img_link"
+            [(ngModel)]="edit_product.img_link">
+            <button (click)="execute_edit_product(edit_product._id)">add product to back end</button>
+      
+      
+          </form>
+
+
+    </form>
+  </ng-container>
+
+
+
+
+
+  </div>
+</div>

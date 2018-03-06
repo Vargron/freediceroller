@@ -105,6 +105,9 @@ export class ViewcharacterComponent implements OnInit {
     
     this.cservice.submit_edit_character()
   }
+  clear_log(){
+    this.cservice.clearlog()
+  }
 
 
 

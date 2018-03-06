@@ -5,7 +5,9 @@ import { LoginComponent } from './login/login.component';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { UsermanagerComponent} from './usermanager/usermanager.component';
 import { ViewcharacterComponent} from './viewcharacter/viewcharacter.component';
-import { AboutusComponent } from './aboutus/aboutus.component'
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductsManagerComponent } from './products-manager/products-manager.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,9 @@ const routes: Routes = [
   { path: 'usermanager', pathMatch: 'full',  component: UsermanagerComponent },
   { path: 'viewcharacter', pathMatch: 'full',  component: ViewcharacterComponent },
   { path: 'aboutus', pathMatch: 'full',  component: AboutusComponent },
+  { path: 'products', pathMatch: 'full',  component: ProductsComponent },
+  { path: 'productsmanager', pathMatch: 'full',  component: ProductsManagerComponent  },
+
 
   
 ];

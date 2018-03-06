@@ -1,54 +1,72 @@
-<div id="character-details">
+<div id="character-details" class="panel panel-default">
 
+    <div class="panel-header">
+        <h1>{{current_character.name}}'s Profile        
+          <ng-container *ngIf="editing_cur_character">
+            
+            <input type="text" name="name"
+            [(ngModel)]="current_character.name"
+            class="form-control"
+            >
+      </ng-container></h1>
+ 
 
-    <h1>{{current_character.name}}'s Profile</h1>
-    <ng-container *ngIf="editing_cur_character">
-        
-          <input type="text" name="name"
-          [(ngModel)]="current_character.name"
-          >
-    </ng-container>
-    <span>{{current_character.desc}}</span>
-    <ng-container *ngIf="editing_cur_character">
-      
-          <input type="text" name="desc"
-          [(ngModel)]="current_character.desc"
-          >
-          <button (click)="submit_edit_character()"> submit edit</button>
+    </div>
+    <div class="panel-body">
 
-  </ng-container><br>
-  <ng-container *ngIf="!editing_cur_character">
-      <button (click)="toggle_edit_character()">Edit Character Details</button>
-  </ng-container>
+        <h5>{{current_character.desc}}</h5>
+        <ng-container *ngIf="editing_cur_character">
+          
+              <input type="text" name="desc"
+              [(ngModel)]="current_character.desc"
+              class="form-control"
+              ><br>
+              <button (click)="submit_edit_character()" class="btn btn-primary"> submit edit</button>
+
+      </ng-container><br>
+      <ng-container *ngIf="!editing_cur_character">
+          <button (click)="toggle_edit_character()" class="btn btn-primary">Edit Character Details</button>
+      </ng-container>
+
+    </div>
+
 
     
 
 </div>
 
-<div id="char-roll-manager">
+<div id="char-roll-manager" > 
 
-  <div id="char-roll-form">
+  <div id="char-roll-form" class="panel panel-default">
 
-    
-    <h3>Add a roll:</h3>
-    <form>
-      <label>Roll Name:</label>
-      <input type=text name="name"
-      [(ngModel)]="new_roll.name"
-      
-      >
-      <br>
-      <label>Dice String:</label>
-      <input type=text name="rollstring"
-      [(ngModel)]="new_roll.rollstring"
-      >
-      <br>
-      <button (click)="addroll()">add roll</button>
-    </form>
+    <div class="panel-header">
+        <h3>Add a roll:</h3>
+    </div>
+    <div class="panel-body">
+      <form>
+        <div class="form-group">
+
+        
+        <label>Roll Name:</label>
+        <input type=text name="name"
+        [(ngModel)]="new_roll.name"
+        class="form-control"
+        >
+        <br>
+        <label>Dice String:</label>
+        <input type=text name="rollstring"
+        [(ngModel)]="new_roll.rollstring"
+        class="form-control"
+        >
+        <br>
+        <button (click)="addroll()" class="btn btn-primary">add roll</button>
+        </div>
+      </form>
+    </div>
   </div>
 
 
-  <table>
+  <table class="table table-striped table-bordered">
     <tr>
         <th>Name</th>
         <th>Dice</th>
@@ -64,34 +82,39 @@
       <td>{{r.name}}</td>
       <td>{{r.rollstring}}</td>
       
-      <td><button (click)="execute_roll(r)">roll</button></td>
-      <td><button (click)="show_roll_edit(r)">edit</button></td>
-      <td><button (click)="delete_roll(r)"> delete</button></td>
-      <td><button (click)="move_roll_up(r)"> move up</button></td>
-      <td><button (click)="move_roll_down(r)"> move down</button></td>
+      <td><button (click)="execute_roll(r)" class="btn btn-default">roll</button></td>
+      <td><button (click)="show_roll_edit(r)" class="btn btn-default">edit</button></td>
+      <td><button (click)="delete_roll(r)" class="btn btn-default"> delete</button></td>
+      <td><button (click)="move_roll_up(r)" class="btn btn-default"> move up</button></td>
+      <td><button (click)="move_roll_down(r)" class="btn btn-default"> move down</button></td>
       </ng-container>
 
       <ng-container *ngIf="r==edit_roll_target">
-        
-        
+
           <td>
+              
+
+                
+              
               <input type="text" name="name"
               [(ngModel)]="edit_roll_target.name"
-              
+              class="form-control"
               >
+              
           </td>
           <td>
               <input type="text" name="rollstring"
               [(ngModel)]="edit_roll_target.rollstring"
-              
+              class="form-control"
               >
           </td>
           <td>
-            <button (click)="submit_roll_edit()">submit roll edit</button>
+            <button (click)="submit_roll_edit()" class="btn btn-secondary">submit roll edit</button>
           </td>
 
         
-        <td><button (click)="cancel_roll_edit()">cancel</button></td>
+        <td><button (click)="cancel_roll_edit()" class="btn btn-secondary">cancel</button></td>
+        
       </ng-container>
 
     </tr>
@@ -100,12 +123,18 @@
   </table>
 </div>
 
-<div id="character_roll_log">
-  <h3>roll log:</h3>
+<div id="character_roll_log" class="panel panel-default">
+  <div class="panel-header">
+      <h3>Roll Log:</h3>
+      <button (click)="clear_log()">Clear log</button>
+  </div>
+  
+
+  <div class="panel-body">
 
   
-  <p *ngFor="let r of char_roll_log"> Your used {{r.name}} on {{r.rollstring}} and got a {{r.result}} </p>
- 
+    <p *ngFor="let r of char_roll_log"> Your used {{r.name}} on {{r.rollstring}} and got a {{r.result}} </p>
+  </div>
 </div>
 
 

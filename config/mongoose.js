@@ -2,7 +2,7 @@ var mongoose=require("mongoose");
 var path=require("path");
 var fs=require("fs");
 var mp=path.join(__dirname,"./../models");
-mongoose.connect('mongodb://localhost/dinos');//change the mong db link to a freshdb
+mongoose.connect('mongodb://localhost/freediceroller1-0');//change the mong db link to a freshdb
 
 
 fs.readdirSync(mp).forEach(function(file){

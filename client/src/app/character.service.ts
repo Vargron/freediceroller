@@ -265,6 +265,10 @@ export class CharacterService implements OnInit  {
       }
     )
   }
+  clearlog(){
+    this.char_roll_log.next([]);
+    
+  }
 
   
 
