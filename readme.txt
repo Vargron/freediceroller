@@ -8,23 +8,25 @@ the following features are currently enabled
 5. crud routes for the character class
 6. rolls kept in an array within the character class
 7. crud routes for rolls.
+8. admin users can add product links for affiliate programs
+9. basic bootstrap added to most of the website,
 
-recently completed items this patch:
-1. general site clean up of troubleshooting items--done
-3. figure out why some strings make it through the parser that shouldn't ex "4d8_9"--done 
-4. full unit testing of all routes.-- should be done have friend double check.--done
 
 additional features that need to be added:
+1. double check all pages for userfriendly use
+2. possibly more boot strap
+3. make sure all text is free of grammer/spelling errors
+4. affiliate links turned off when query gets zero items
+5. figure out why the image links fail sometimes/ how to upload product images to server
+6. first deployment and testing 
 
 
-1. basic styling & css 
-    a. no images
-    b. goal is minimal package size
 
 
-2. add google ads /amazon affiliate link so I don't have to burn money to host it-awaiting first deployment 
 
-3. about us section with my and franz's information-- mine is done, need franz's
+7. add google ads /amazon affiliate link so I don't have to burn money to host it-awaiting first deployment 
+
+
 
 
 mabey features:
