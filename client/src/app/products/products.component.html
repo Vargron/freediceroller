@@ -1,12 +1,20 @@
 
 <div class="panel panel-default ">
-  <div class="panel-header container-fluid" align="center" >
+  <div class="panel-header container-fluid" align="left" >
       <h1 class="col-md-6" >Cool roleplaying products</h1>
       <div class="col-md-6" style="padding-top:30px;">
         <form >
           <input type="text" name="text" [(ngModel)]="searchbox.text">
-          <button (click)="execute_search()">Search</button>
-          <button (click)="undo_search()">undo</button>
+          <ng-container *ngIf="all_products.length==cur_products.length && search_term==''" >
+              <button (click)="execute_search()"> Search</button>
+          </ng-container>
+          
+          <ng-container *ngIf="all_products.length!=cur_products.length || search_term!=''">
+
+          
+            <button (click)="execute_search()">Search Again?</button>
+            <button (click)="undo_search()">undo</button>
+          </ng-container>
         </form>
       </div>
   </div>
@@ -20,6 +28,10 @@
     </div>
 
     
+
+</div>
+<div *ngIf="search_term!=''">
+  <p>Curent Search: {{search_term}}</p>
 
 </div>
 
@@ -42,5 +54,11 @@
 
 
 
+
+</div>
+
+<div *ngIf="cur_products.length==0">
+  <h3>Sorry we couldn't find any products with the  search term:{{search_term}} </h3>
+  <button (click)="undo_search()"> Undo Search?</button>
 
 </div>

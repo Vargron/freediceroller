@@ -9,6 +9,10 @@ import  { UserService } from './../user.service'
 export class LoginComponent implements OnInit {
   loginUser;
   registerUser;
+  registererrors;
+  reg_success;
+  login_errors;
+
   
   constructor(private uservice:UserService) { 
     this.loginUser={
@@ -22,10 +26,27 @@ export class LoginComponent implements OnInit {
       passwordcon:"password",
 
     }
+    
 
   }
 
   ngOnInit() {
+    this.uservice.registererrors.subscribe(
+      (res)=>{
+        this.registererrors=res;
+      }
+    )
+    this.uservice.reg_success.subscribe(
+      (res)=>{
+        this.reg_success=res;
+      }
+
+    )
+    this.uservice.login_errors.subscribe(
+      (res)=>{
+        this.login_errors=res;
+      }
+    )
   }
 
   login(){
@@ -36,6 +57,8 @@ export class LoginComponent implements OnInit {
       password:"",
     }
     this.uservice.login(user, ()=>{
+      this.uservice.registererrors.next([])
+      this.uservice.reg_success.next(false)
 
     })
     
@@ -56,5 +79,13 @@ export class LoginComponent implements OnInit {
     })
     
   }
-
+  clear_reg_errors(){
+    this.uservice.registererrors.next([]);
+  }
+  clear_reg_success(){
+    this.uservice.reg_success.next(false);
+  }
+  clear_login_errors(){
+    this.uservice.login_errors.next([])
+  }
 }

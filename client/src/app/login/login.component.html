@@ -41,6 +41,23 @@
           <button (click)="register()">register!</button>
         </div>
     </form>
+    <div *ngIf="registererrors.length>0"  role="alert" class="alert alert-danger">
+        <button (click)="clear_reg_errors()" class="btn btn-default"> X </button>
+      <h3> Registration Error: </h3>
+      <p *ngFor="let e of registererrors">
+        {{e}}
+
+      </p>
+     
+      
+
+
+    </div>
+    <div *ngIf="reg_success" role="alert" class="alert alert-success">
+      <h3>Sucessfuly Registered</h3>
+      <button (click)="clear_reg_sucess()" > X</button>
+
+    </div>
   </div>
   <div id="login" class="panel panel-default col-sm-6 " align="left" >
 
@@ -68,6 +85,14 @@
           
         </form>
       </div>
+      <div *ngIf="login_errors.length>0" role="alert" class="alert alert-danger">
+        <button (click)="clear_login_errors()" class="btn btn-default">X</button>
+        <h3> Error: username and password combination does not exist:  </h3>
+        
+          
+      </div>
+     
+
     </div>
 
   

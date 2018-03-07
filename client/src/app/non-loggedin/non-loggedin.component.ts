@@ -15,6 +15,7 @@ export class NonLoggedinComponent implements OnInit {
   freerollerhistory;//managed by service behavioursubject
   rollerrors;//managed by behavioursubject
   explanation;
+  reg_alert;
 
 
   constructor(private rservice:RollService, private routes:RoutingService) { 
@@ -40,6 +41,11 @@ export class NonLoggedinComponent implements OnInit {
     this.rservice.explanation.subscribe(
       (res)=>{
         this.explanation=res
+      }
+    )
+    this.rservice.reg_alert.subscribe(
+      (res)=>{
+        this.reg_alert=res;
       }
     )
   }
@@ -72,12 +78,16 @@ export class NonLoggedinComponent implements OnInit {
     this.routes.gotologin()
 
   }
-  explain_dice_string(){
-    this.rservice.explain_dice_string()
-  }
+
   show_explanation(){
     console.log("in comp")
     this.rservice.show_explanation()
+  }
+  hide_reg_alert(){
+    this.rservice.reg_alert.next(false)
+  }
+  go_to_register(){
+    this.routes.gotologin()
   }
 
 }

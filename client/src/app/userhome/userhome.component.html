@@ -18,7 +18,7 @@
     
     
     
-    <div id="dice_exp" *ngIf="explanation==true" class="alert alert-info" role="alert">
+    <div id="dice_exp" *ngIf="explanation==true" class="alert alert-info" role="alert" align="left">
       
         
          
@@ -68,7 +68,7 @@
     <tr *ngFor="let item of freerollerhistory">
       <td>{{item.roll}}</td>
       <td>{{item.result}}</td>
-      <td><button (click)=rerollString(item.roll) >Reroll?</button></td>
+      <td><button (click)=rerollString(item.roll) class="btn btn-default" >Reroll?</button></td>
     </tr>
   </table>
 
@@ -111,7 +111,7 @@
 
           
 
-          <button (click) ="addcharacter()" class="btn btn-secondary">add character </button>
+          <button (click) ="addcharacter()" class="btn btn-secondary">Add Character </button>
         </form>
 
     </div>
@@ -130,16 +130,28 @@
       <tr>
         <th>Name </th>
         <th>Description:</th>
-        <th>total rolls stored</th>
-        <th>view</th>
-        <th>delete</th>
+        <th>Total Rolls Stored</th>
+        <th>View</th>
+        <th>Delete</th>
       </tr>
       <tr *ngFor="let char of current_characters">
         <td>{{char.name}}</td>
         <td>{{char.desc}}</td>
         <td>{{char.rolls.length}}</td>
-        <td><button (click)="viewcharacter(char._id)" class="btn btn-default"> view </button></td>
-        <td><button (click)="deletecharacter(char._id)" class="btn btn-default">delete</button></td>
+        <td><button (click)="viewcharacter(char._id)" class="btn btn-default"> View </button></td>
+        <td>
+          <ng-container *ngIf="char_del_target!=char._id">
+            <button (click)="set_char_del_target(char._id)" class="btn btn-default"> Delete</button>
+
+          </ng-container>
+          <ng-container *ngIf="char_del_target==char._id">
+            <span>Confirm?</span>
+              <button (click)="deletecharacter(char._id)" class="btn btn-default">Yes</button>
+              <button (click)="set_char_del_target('')" class="btn btn-default">No</button>
+
+          </ng-container>
+
+        </td>
         
 
       </tr>
@@ -154,4 +166,5 @@
 <!-- this ends character manager -->
 
 </div>
+
 

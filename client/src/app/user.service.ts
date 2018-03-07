@@ -10,6 +10,8 @@ export class UserService {
   all_users:BehaviorSubject<any>= new BehaviorSubject([]);
   show_edit:BehaviorSubject<any> = new BehaviorSubject(false);
   edit_target:BehaviorSubject<any>= new BehaviorSubject({});
+  reg_success:BehaviorSubject<Boolean>=new BehaviorSubject(false);
+  login_errors:BehaviorSubject<any>=new BehaviorSubject([]);
 
   constructor(private http:HttpClient, private router:Router,) {
 
@@ -27,7 +29,8 @@ export class UserService {
           this.router.navigate(["/home"])
 
         }else{
-          alert("you failed to login, error: "+result["error"])
+          this.login_errors.next(["you failed to login, error: "+result["error"]])
+          
         }
        }
 
@@ -70,7 +73,7 @@ export class UserService {
         errors.push(tests[i][1])
       }
     }
-    // console.log(errors)
+    console.log(errors)
     if(errors.length>0){
       this.registererrors.next(errors);
     }else{
@@ -83,7 +86,7 @@ export class UserService {
             // console.log(res["status"])
           }
           else{
-            alert("registration sucess")
+            this.reg_success.next(true);
           }
         }
       )

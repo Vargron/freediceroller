@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterService} from '.././character.service';
 import { RollService } from '.././roll.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewcharacter',
@@ -13,9 +14,12 @@ export class ViewcharacterComponent implements OnInit {
   char_roll_log;
   edit_roll_target;
   editing_cur_character;
+  char_del_target;
+  roll_del_target;
+  char_roll_errors;//this is for form validation is added and removed as needed to update html dynamicaly
 
 
-  constructor(private cservice:CharacterService, private rservice:RollService) { }
+  constructor(private cservice:CharacterService, private rservice:RollService, private router:Router) { }
 
   ngOnInit() {
     this.cservice.current_character.subscribe(
@@ -43,15 +47,35 @@ export class ViewcharacterComponent implements OnInit {
         this.editing_cur_character=res;
       }
     )
+    this.cservice.roll_del_target.subscribe(
+      (res)=>{
+        this.roll_del_target=res;
+      }
+    )
+    this.cservice.char_roll_errors.subscribe(
+      (res)=>{
+        this.char_roll_errors=res;
+      }
+    )
     
   }
   addroll(){
     // console.log(this.new_roll)
     this.rservice.validatestring(this.new_roll.rollstring, 
     (test)=>{
+      let errors=[]
+      if(this.new_roll.name.length<3){
+        errors.push("name must be at least 3 chars")
+      }
       if(!test){
-        alert("invalid rollstring")
-      }else{
+        errors.push("invalid rollstring")
+
+      }
+      this.cservice.char_roll_errors.next(errors)
+    
+      if (errors.length==0){
+
+
         this.cservice.addroll(this.new_roll, 
           ()=>{
           this.new_roll={
@@ -107,6 +131,18 @@ export class ViewcharacterComponent implements OnInit {
   }
   clear_log(){
     this.cservice.clearlog()
+  }
+  clear_del_target(){
+    console.log()
+  }
+  set_roll_del_target(id){
+    this.cservice.set_roll_del_target(id);
+  }
+  back_to_home(){
+    this.router.navigate(["/home"])
+  }
+  reset_errors(){
+    this.cservice.char_roll_errors.next([])
   }
 
 

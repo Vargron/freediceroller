@@ -12,6 +12,7 @@ import { ProductService } from './product.service';
 export class AppComponent implements OnInit  {
  
   current_user;
+  all_products;
 
   constructor(private uservice:UserService, private router:Router, private pservice:ProductService){
 
@@ -49,7 +50,15 @@ export class AppComponent implements OnInit  {
       }
     )
     this.pservice.update_all_products(
-      (cb)=>{
+      (res)=>{
+
+
+
+      }
+    )
+    this.pservice.all_products.subscribe(
+      (res)=>{
+        this.all_products=res;
 
       }
     )
@@ -80,7 +89,13 @@ export class AppComponent implements OnInit  {
     this.router.navigate(["/aboutus"])
   }
   show_products(){
-    this.router.navigate(['/products'])
+
+
+        this.router.navigate(['/products'])
+          
+
+    
+    
   }
   show_products_manager(){
     this.uservice.verify_admin(

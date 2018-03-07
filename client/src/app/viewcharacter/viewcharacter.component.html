@@ -1,18 +1,31 @@
 <div id="character-details" class="panel panel-default">
 
-    <div class="panel-header">
-        <h1>{{current_character.name}}'s Profile        
-          <ng-container *ngIf="editing_cur_character">
-            
-            <input type="text" name="name"
-            [(ngModel)]="current_character.name"
-            class="form-control"
-            >
-      </ng-container></h1>
- 
+    <div class="panel-header container-fluid">
+      <div class="col-md-10">
+          <h1>{{current_character.name}}'s Profile        
+              <ng-container *ngIf="editing_cur_character">
+                
+                <input type="text" name="name"
+                [(ngModel)]="current_character.name"
+                class="form-control"
+                >
+          </ng-container></h1>
+
+      </div>
+      <div class="col-md-2">
+          <button (click)="back_to_home()" 
+          class="btn btn-primary"
+          align="right"
+          
+          >Back to home</button>
+
+      </div>
+
+
+      
 
     </div>
-    <div class="panel-body">
+    <div class="panel-body" >
 
         <h5>{{current_character.desc}}</h5>
         <ng-container *ngIf="editing_cur_character">
@@ -63,6 +76,15 @@
         </div>
       </form>
     </div>
+    <div *ngIf="char_roll_errors.length>0" role="alert" class="alert alert-danger">
+      <ng-container *ngFor="let r of char_roll_errors">
+        <p>
+            {{r}}
+        </p>
+        
+      </ng-container>
+      <button (click)="reset_errors()"> X</button>
+    </div>
   </div>
 
 
@@ -84,7 +106,23 @@
       
       <td><button (click)="execute_roll(r)" class="btn btn-default">roll</button></td>
       <td><button (click)="show_roll_edit(r)" class="btn btn-default">edit</button></td>
-      <td><button (click)="delete_roll(r)" class="btn btn-default"> delete</button></td>
+      
+      <td>
+        <ng-container *ngIf="roll_del_target!=r.name">
+          <button (click)="set_roll_del_target(r.name)" class="btn btn-default">
+            delete
+          </button>
+        </ng-container>
+        
+        <ng-container *ngIf="roll_del_target==r.name">
+          <span>confirm?</span>
+            <button (click)="delete_roll(r)" class="btn btn-default"> yes</button>
+            <button (click)="set_roll_del_target(-1)" class="btn btn-default">No</button>
+
+        </ng-container>
+
+      
+      </td>
       <td><button (click)="move_roll_up(r)" class="btn btn-default"> move up</button></td>
       <td><button (click)="move_roll_down(r)" class="btn btn-default"> move down</button></td>
       </ng-container>
@@ -136,6 +174,8 @@
     <p *ngFor="let r of char_roll_log"> Your used {{r.name}} on {{r.rollstring}} and got a {{r.result}} </p>
   </div>
 </div>
+
+
 
 
 

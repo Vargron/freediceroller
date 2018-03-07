@@ -21,6 +21,9 @@ export class UserhomeComponent implements OnInit {
   new_character;
   current_characters;
   explanation;
+  char_del_target;
+  char_errors;
+  
   
 
 
@@ -33,6 +36,12 @@ export class UserhomeComponent implements OnInit {
       desc:"",
       author_id:"",
     }
+    this.cservice.char_del_target.subscribe(
+      (res)=>{
+        this.char_del_target=res;
+      }
+
+    )
     
   }
 
@@ -149,6 +158,9 @@ export class UserhomeComponent implements OnInit {
   show_explanation(){
     this.rservice.show_explanation()
     
+  }
+  set_char_del_target(id){
+    this.cservice.set_char_del_target(id);
   }
     
   

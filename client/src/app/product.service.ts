@@ -8,7 +8,8 @@ export class ProductService {
   all_products:BehaviorSubject<any>=new BehaviorSubject([]);
   cur_products:BehaviorSubject<any>= new BehaviorSubject([]);
   delete_target:BehaviorSubject<String>=new BehaviorSubject("");
-  edit_product:BehaviorSubject<Object>=new BehaviorSubject({})
+  edit_product:BehaviorSubject<Object>=new BehaviorSubject({});
+  search_term:BehaviorSubject<String>= new BehaviorSubject("");
 
   constructor(private Http:HttpClient, private router:Router) { 
     
@@ -29,7 +30,7 @@ export class ProductService {
   update_all_products(cb){
     this.Http.get('/product/all').subscribe(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.all_products.next(res["result"])
         this.cur_products.next(res["result"])
         cb(res)
@@ -141,6 +142,8 @@ export class ProductService {
         // console.log(finalsort)
       }
     }
+    console.log(sbox.text)
+    this.search_term.next(sbox.text)
     this.cur_products.next(finalsort)
   }
   undo_search(){

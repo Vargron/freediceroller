@@ -11,6 +11,7 @@ export class RollService {
   freerollerhistory:BehaviorSubject<any[]>= new BehaviorSubject([]);
   rollerrors:BehaviorSubject<any[]>= new BehaviorSubject([]);
   explanation:BehaviorSubject<any>= new BehaviorSubject(false);
+  reg_alert:BehaviorSubject<any>= new BehaviorSubject(false);
   constructor() { }
   rollstring(freeroller, cb){
     // console.log(rollLib)
@@ -28,8 +29,14 @@ export class RollService {
     }else{
       var  history=this.freerollerhistory.getValue()
       // console.log("historymod happenging")
-      
-      for(let i=history.length;i>0;i--){
+      let max=10;
+      if(history.length<10){
+        max=history.length
+      }
+      if(history.length==9){
+        this.reg_alert.next(true);
+      }
+      for(let i=max;i>0;i--){
         history[i]=history[i-1];
       }
       history[0]= ({
@@ -61,18 +68,8 @@ export class RollService {
 
   }
 
-  explain_dice_string(){
-    alert("A dice string is a represenation of a group of dice."+"\n"+
-    "For example:"+"\n"+
-     "4 six sided dice is 4d6"+"\n"+
-     "In d20 based rules systems a character rolls 1d20+ their base attack bonus to attack"+"\n"+
-     "Dice strings should only contain the following characters:"+"\n"+
-     "Numerals(0-9) , d, D, +, or - "+"\n"+
-     "in the format: xDy+aDb+c "+"\n"+ 
-     "Where x,y, a,b, and c are all numbers"+"\n"+
-     "You can combine any number of diffrent sized dice and any bonus in this way \
-    ")
-  }
+
+
 
   show_explanation(){
     console.log("inservice", this.explanation)
@@ -82,6 +79,7 @@ export class RollService {
       this.explanation.next(false)
     }
   }
+
 
 
 

@@ -7,14 +7,14 @@
 <div id ="open roller" align="center" class="panel panel-default col-md-6">
   
   <div class="panel-heading ">
-      <h3>Enter a dice string ! </h3>
+      <h3>Enter a Dice String ! </h3>
       <button (click)="show_explanation()" class="btn btn-info" >What's a dice string ?</button>
   </div>
   <div class="panel-body">
     
     
     
-    <div id="dice_exp" *ngIf="explanation==true" class="alert alert-info" role="alert">
+    <div id="dice_exp" *ngIf="explanation==true" class="alert alert-info" role="alert" align="left">
       
         
          
@@ -53,6 +53,13 @@
     </div>
   </form>
 
+  <div *ngIf="reg_alert" class="alert alert-info" role="alert" align="left">
+      <button (click)="hide_reg_alert()" class="btn btn-default"> X</button >
+    <h3> Did you know that you can store the rolls you use with a paticular character if you login?</h3>
+    <button (click)="go_to_register()">click here to go to the register page</button>
+
+  </div>
+
  
   
   <p *ngFor="let e of rollerrors" class="alert alert-danger"> {{e}}</p>
@@ -66,7 +73,7 @@
     <tr *ngFor="let item of freerollerhistory">
       <td>{{item.roll}}</td>
       <td>{{item.result}}</td>
-      <td><button (click)=rerollString(item.roll) >Reroll?</button></td>
+      <td><button (click)=rerollString(item.roll) class="btn btn-default">Reroll?</button></td>
     </tr>
   </table>
 

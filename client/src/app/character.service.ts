@@ -11,6 +11,10 @@ export class CharacterService implements OnInit  {
   char_roll_log:BehaviorSubject<any>= new BehaviorSubject([]);// tracks roles for current character front end only
   edit_roll_target:BehaviorSubject<Object>= new BehaviorSubject({});
   editing_cur_character:BehaviorSubject<any>= new BehaviorSubject(false);
+  char_del_target:BehaviorSubject<String>= new BehaviorSubject("");
+  roll_del_target:BehaviorSubject<Number>= new BehaviorSubject(-1);
+  char_roll_errors:BehaviorSubject<any>= new BehaviorSubject([]);
+
 
   constructor(private http:HttpClient, private router:Router) {
     this.find_current_user(
@@ -48,6 +52,8 @@ export class CharacterService implements OnInit  {
   }
   addcharacter(new_character, cb){
     // console.log(this.current_user.getValue())
+    
+
     this.http.post("/character/add", {
       user:this.current_user.getValue(),
       character:new_character,
@@ -93,6 +99,12 @@ export class CharacterService implements OnInit  {
 
       }
     )
+  }
+  set_char_del_target(id){
+    this.char_del_target.next(id);
+  }
+  set_roll_del_target(index){
+    this.roll_del_target.next(index);
   }
 
 
