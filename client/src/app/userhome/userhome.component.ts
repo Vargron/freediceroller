@@ -152,9 +152,7 @@ export class UserhomeComponent implements OnInit {
     // console.log(id)
     this.cservice.deletecharacter(id)
   }
-  explain_dice_string(){
-    this.rservice.explain_dice_string()
-  }
+
   show_explanation(){
     this.rservice.show_explanation()
     

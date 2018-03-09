@@ -13,23 +13,29 @@
       name="name"
       [(ngModel)]="new_product.name"
       >
+      <br>
+
       <label>display order(int, strings "top", "side" will theroreticaly be a banner option) :</label>
       <input type="text"
       name="name"
       [(ngModel)]="new_product.display">
+      <br>
       <label> product description:</label>
       <input type="textarea"
       
       name="desc"
       [(ngModel)]="new_product.desc">
+      <br>
       <label> product link (use our affiliate link):</label>
       <input type="text" 
       name="link"
       [(ngModel)]="new_product.link">
+      <br>
       <label>api call for image if applicable</label>
       <input type="text"
       name="name"
       [(ngModel)]="new_product.img_link">
+      <br>
       <button (click)="addproduct()">add product to back end</button>
 
 

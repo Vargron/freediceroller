@@ -54,14 +54,14 @@ export class ProductsManagerComponent implements OnInit {
 
   }
   addproduct(){
-    console.log("hitting add product")
-    console.log(this.new_product)
+    // console.log("hitting add product")
+    // console.log(this.new_product)
     this.pservice.add_product(this.new_product, 
       (res)=>{
-        console.log(res)
+        // console.log(res)
       this.pservice.update_all_products(
         (res2)=>{
-          console.log(res2)
+          // console.log(res2)
         }
       )
 
@@ -85,7 +85,7 @@ export class ProductsManagerComponent implements OnInit {
 
   }
   edit(id){
-    console.log(id)
+    // console.log(id)
     let all=this.all_products
     this.pservice.edit_product.next({});
     for(let i=0; i<all.length;i++){
@@ -96,16 +96,16 @@ export class ProductsManagerComponent implements OnInit {
     }
   }
   show_delete(id){
-    console.log(id)
+    // console.log(id)
     this.pservice.show_delete(id)
-    console.log(typeof(id), id)
-    console.log(this.delete_target==id)
+    // console.log(typeof(id), id)
+    // console.log(this.delete_target==id)
   }
   hide_delete(){
     this.pservice.show_delete("")
   }
   delete(id){
-    console.log(id)
+    // console.log(id)
     this.pservice.delete(id)
   }
   execute_edit_product(id){

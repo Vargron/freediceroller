@@ -89,18 +89,12 @@ export class AppComponent implements OnInit  {
     this.router.navigate(["/aboutus"])
   }
   show_products(){
-
-
         this.router.navigate(['/products'])
-          
-
-    
-    
   }
   show_products_manager(){
     this.uservice.verify_admin(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         if(res){
           this.router.navigate(['/productsmanager'])
         }
@@ -110,6 +104,13 @@ export class AppComponent implements OnInit  {
         
       }
     )
+  }
+  change_password(){
+    if (this.current_user){
+      this.router.navigate(["/changepassword"])
+    }else{
+      this.router.navigate(["/"])
+    }
   }
   
 

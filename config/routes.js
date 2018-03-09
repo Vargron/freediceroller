@@ -64,12 +64,18 @@ module.exports=function(app){
     app.post('/product/edit', function(req,res){
         product.edit(req,res)
     })
-    
+    app.post("/user/verifypassword/", function(req,res){
+        user.verifypassword(req,res);
+    })
+    app.post("/user/changepassword", function(req,res){
+        user.changepassword(req,res)
+    })
 
 
 
     app.get("**", function(req,res){
         res.redirect("/")
     })
+    
 
 }

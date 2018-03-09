@@ -80,7 +80,7 @@ export class NonLoggedinComponent implements OnInit {
   }
 
   show_explanation(){
-    console.log("in comp")
+    // console.log("in comp")
     this.rservice.show_explanation()
   }
   hide_reg_alert(){

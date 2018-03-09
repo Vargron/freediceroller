@@ -20,6 +20,7 @@ import { ViewcharacterComponent } from './viewcharacter/viewcharacter.component'
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductsManagerComponent } from './products-manager/products-manager.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProductsManagerComponent } from './products-manager/products-manager.co
     AboutusComponent,
     ProductsComponent,
     ProductsManagerComponent,
+    ChangepasswordComponent,
     
   ],
   imports: [

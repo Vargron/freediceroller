@@ -313,6 +313,63 @@ module.exports={
 
         }
 
+    },
+    verifypassword:function(req,res){
+        User.find({_id:req.body._id}, (err,userresult)=>{
+            if (err ||userresult.length==0){
+                res.json({verified:false})
+            }
+            // console.log(err,"err", result,"result")
+            // console.log(result[0].username, user.username)
+            else{
+                bcrypt.compare(req.body.password, userresult[0].passhash, 
+                    function(err, result){
+                        var errors=[]
+                        if(userresult[0].username!=req.body.username){
+                            errors.push("username did not match")
+    
+                        }
+                        if (!result){
+                            errors.push("invalid password")
+                        }
+                        if(!errors.length){
+                            res.json({verified:true})
+                        }
+                        else{
+                            res.json({verified:false, errors:errors})
+    
+                        }
+                        
+    
+                    }
+                )
+    
+                
+            }
+
+        })
+
+
+    },
+    changepassword:function(req,res){
+        bcrypt.hash(req.body.password, 10, 
+            (err, hash)=>{
+                if (err){
+                    res.json({Status:"failure"})
+                }
+                else{
+                    req.body.user["passhash"]=hash;
+                    User.findOneAndUpdate({_id:req.body.user._id}, req.body.user, 
+                        (err,result)=>{
+                        console.log(err,result)
+                        res.json({status:!err, result:result})
+                    })
+                }
+                
+        })
+        
+        
+
     }
 
 

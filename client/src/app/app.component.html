@@ -20,16 +20,13 @@
                     <ng-container *ngIf="current_user.username">
                             <button [routerLink]="['home']" class="btn btn-primary">Home</button>
                             <button (click)="logout()" class="btn btn-primary"> Logout</button>
+                            <button (click)="change_password()" class="btn btn-primary">Change Password</button>
                     </ng-container>
-                        
-
             </ng-container>
             <button (click)="show_about_us()" class="btn btn-primary"> About Us</button>
             <ng-container *ngIf="all_products.length!=0">
                 <button (click)="show_products()" class="btn btn-primary">Cool Roleplaying Products </button>
-        
             </ng-container>
-
         </div>
     </div>
 </div>

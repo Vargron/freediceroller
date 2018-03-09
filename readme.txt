@@ -29,32 +29,5 @@ individual targets before deployment:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 mabey features:
 1. clone character/ view other user's characters.
-
-

@@ -132,9 +132,7 @@ export class ViewcharacterComponent implements OnInit {
   clear_log(){
     this.cservice.clearlog()
   }
-  clear_del_target(){
-    console.log()
-  }
+
   set_roll_del_target(id){
     this.cservice.set_roll_del_target(id);
   }

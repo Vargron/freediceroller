@@ -70,6 +70,7 @@ export class ProductService {
   }
   execute_search(sbox){
     function search_and_count(large,small){
+      large=large+" "
       let cur_match_indicies=[];
       let cur_index=0;
       let next_matches=[];
@@ -107,16 +108,18 @@ export class ProductService {
     let catcharr=[]
     let max=0
     for(let i=0;i<source.length; i++){
-      console.log(source[i])
+      
       
       curstring=""+source[i]["name"]+source[i]["desc"];
       curcount=0
+      // console.log(curstring,"curstring")
       // for(let j=0;j<tarboxes.length;j++){
       //   curstring+=source[i][j]
       // }
-      console.log(curstring)
+      // console.log(curstring)
       curcount=search_and_count(curstring,sbox.text);
       // console.log(curcount)
+      // console.log("cs", curstring,"cc", curcount)
       if (curcount>0){
         if (curcount>max){
           max=curcount;
@@ -136,12 +139,14 @@ export class ProductService {
     // console.log(catcharr)
     // console.log(max)
     let finalsort=[]
+    
     for(let i=max; i>0;i--){
       if(catcharr[i]){
         finalsort=finalsort.concat(catcharr[i]);
         // console.log(finalsort)
       }
     }
+    console.log(finalsort)
     console.log(sbox.text)
     this.search_term.next(sbox.text)
     this.cur_products.next(finalsort)

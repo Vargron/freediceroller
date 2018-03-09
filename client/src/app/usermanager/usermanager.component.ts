@@ -11,6 +11,7 @@ export class UsermanagerComponent implements OnInit {
   all_users;
   show_edit;
   edit_target;
+  delete_target;
 
   constructor(private uservice:UserService,) { 
     
@@ -34,6 +35,11 @@ export class UsermanagerComponent implements OnInit {
         this.edit_target=res;
       }
     )
+    this.uservice.delete_target.subscribe(
+      (res)=>{
+        this.delete_target=res;
+      }
+    )
   }
   delete(id){
     // console.log(id)
@@ -50,6 +56,9 @@ export class UsermanagerComponent implements OnInit {
   }
   execute_edit(){
     this.uservice.execute_edit()
+  }
+  show_delete(id){
+    this.uservice.show_delete(id)
   }
   
 

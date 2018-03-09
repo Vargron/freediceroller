@@ -12,6 +12,10 @@ export class UserService {
   edit_target:BehaviorSubject<any>= new BehaviorSubject({});
   reg_success:BehaviorSubject<Boolean>=new BehaviorSubject(false);
   login_errors:BehaviorSubject<any>=new BehaviorSubject([]);
+  delete_target:BehaviorSubject<any>=new BehaviorSubject("");
+  accounteditunlocked:BehaviorSubject<Boolean>= new BehaviorSubject(false);
+  failedaccountedit:BehaviorSubject<Boolean>=new BehaviorSubject(false);
+  account_edit_errors:BehaviorSubject <Array<String> >= new BehaviorSubject([])
 
   constructor(private http:HttpClient, private router:Router,) {
 
@@ -146,7 +150,7 @@ export class UserService {
     this.edit_target.next({})
     let users=this.all_users.getValue();
     let temp={}
-    console.log(this.all_users)
+    // console.log(this.all_users)
     for (let i=0;i<users.length; i++){
       if(users[i]._id==id){
         
@@ -171,7 +175,7 @@ export class UserService {
         if (status["admin"]){
           this.http.post("/user/edit", new_user).subscribe(
             (res)=>{
-              console.log(res)
+              // console.log(res)
               // console.log(res)
               if(res["status"]=="success"){
                 this.update_all_users();
@@ -199,6 +203,11 @@ export class UserService {
     }
     )
   }
+
+
+  show_delete(id){
+    this.delete_target.next(id);
+  }
   delete_user(id){
     // console.log(id)
     this.http.get("/verifyadmin").subscribe(
@@ -216,6 +225,53 @@ export class UserService {
         }
       }
     )
-  } 
+  }
+  verify_user(user,cb){
+    user["_id"]=this.current_user.getValue()["_id"]
+    console.log(user)
+    console.log(this.current_user.getValue())
+    this.http.post("/user/verifypassword/", user).subscribe(
+      (res)=>{
+        if (res["verified"]){
+          this.accounteditunlocked.next(true);
+        }
+        else{
+          this.failedaccountedit.next(true);
+        }
+        // console.log(res)
+        cb(res)
+
+      }
+    )
+
+  }
+  execute_account_edit(current_user,pword_box,cb){
+    let errors=[]
+    if(pword_box.password!=pword_box.password_conf){
+      errors.push("passwords do not match")
+    }
+    if(pword_box.password.length<8){
+      errors.push("password not long enough must contain 8 characters")
+    }
+    if (errors.length>0){
+      this.account_edit_errors.next(errors)
+    }else{
+      this.account_edit_errors.next(errors)
+      this.http.post('/user/changepassword/',{user:current_user, password:pword_box.password}).subscribe(
+        (res)=>{
+          // console.log(res)
+          if(res["status"]){
+            this.current_user.next(res["result"])
+            this.failedaccountedit.next(false)
+            this.accounteditunlocked.next(false)
+            this.router.navigate(["/home"])
+          }
+        }
+      )
+      //more stuff
+    }
+    
+  }
 
 }
+

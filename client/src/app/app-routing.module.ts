@@ -8,6 +8,7 @@ import { ViewcharacterComponent} from './viewcharacter/viewcharacter.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductsManagerComponent } from './products-manager/products-manager.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component' 
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'aboutus', pathMatch: 'full',  component: AboutusComponent },
   { path: 'products', pathMatch: 'full',  component: ProductsComponent },
   { path: 'productsmanager', pathMatch: 'full',  component: ProductsManagerComponent  },
-
+  { path: 'changepassword', pathMatch: 'full',  component: ChangepasswordComponent  },
+  
 
   
 ];
