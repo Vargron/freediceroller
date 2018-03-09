@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'Rxjs/behaviorsubject'
+import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 import { Router } from '@angular/router';
 
 var rollLib=require('./diceroll_library.js')

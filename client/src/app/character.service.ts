@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'Rxjs/behaviorsubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserService } from './user.service';
 @Injectable()
 export class CharacterService implements OnInit  {
