@@ -1,6 +1,6 @@
 var mongoose=require("mongoose")// extabilishes mongoose operations
 var User=mongoose.model("User")//note is replaced by desired variable establishes table equivalent
-var  bcrypt = require('bcrypt')//requires bcrypt
+var bcrypt = require('bcryptjs')//requires bcrypt
 var session= require("express-session")
 
 module.exports={
