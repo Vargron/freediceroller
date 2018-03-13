@@ -18,8 +18,7 @@ export class UserService {
   account_edit_errors:BehaviorSubject <Array<String> >= new BehaviorSubject([])
 
   constructor(private http:HttpClient, private router:Router,) {
-
-   }
+  }
 
 
    login(user,cb){
@@ -27,7 +26,7 @@ export class UserService {
     //  console.log("inservice", user)
      this.http.post("/user/login", user).subscribe(
        (result)=>{
-        // console.log(result)
+        console.log(result)
         if(result["status"]=="sucess"){
           this.current_user.next(result["user"])
           this.router.navigate(["/home"])
@@ -84,7 +83,7 @@ export class UserService {
       // console.log("going to back end")
       this.http.post("../user/create", user).subscribe(
         (res)=>{
-          // console.log(res)
+          console.log(res)
           if(res["status"]!="sucess"){
             this.registererrors.next([res["status"]])
             // console.log(res["status"])
@@ -271,6 +270,10 @@ export class UserService {
       //more stuff
     }
     
+  }
+  set_reg_success(state){
+    console.log(state)
+    this.reg_success.next(state)
   }
 
 }

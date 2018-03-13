@@ -82,8 +82,8 @@ export class LoginComponent implements OnInit {
   clear_reg_errors(){
     this.uservice.registererrors.next([]);
   }
-  clear_reg_success(){
-    this.uservice.reg_success.next(false);
+  clear_reg_sucess(){
+    this.uservice.set_reg_success(false)
   }
   clear_login_errors(){
     this.uservice.login_errors.next([])
